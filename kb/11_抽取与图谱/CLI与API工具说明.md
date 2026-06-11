@@ -41,7 +41,7 @@ tools/kb_to_sqlite.py
 命令：
 
 ```bash
-python tools/kb_to_sqlite.py --vault . --out out/windows_app_baseline.db --rebuild --debug
+python tools/kb_to_sqlite.py --vault kb --out out/windows_app_baseline.db --rebuild --debug
 ```
 
 ## 3. 工具二：Neo4j 图转换
@@ -66,7 +66,7 @@ tools/kb_to_neo4j.py
 命令：
 
 ```bash
-python tools/kb_to_neo4j.py --vault . --out out/windows_app_baseline.cypher --debug
+python tools/kb_to_neo4j.py --vault kb --out out/windows_app_baseline.cypher --debug
 ```
 
 ## 4. 工具三：API 检索服务
@@ -108,7 +108,7 @@ Neo4j 支撑关系推理和路径分析
 ## 6. 推荐流水线
 
 ```bash
-python tools/kb_to_sqlite.py --vault . --out out/windows_app_baseline.db --rebuild --debug
-python tools/kb_to_neo4j.py --vault . --out out/windows_app_baseline.cypher --debug
+python tools/kb_to_sqlite.py --vault kb --out out/windows_app_baseline.db --rebuild --debug
+python tools/kb_to_neo4j.py --vault kb --out out/windows_app_baseline.cypher --debug
 python tools/api_service.py --db out/windows_app_baseline.db --host 0.0.0.0 --port 8000 --debug
 ```

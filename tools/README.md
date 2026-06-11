@@ -10,7 +10,7 @@
 
 ```bash
 --debug
---log-file logs/tool.log
+--log-file kb/logs/tool.log
 ```
 
 用于打印详细 debug 日志，方便排查解析、抽取、入库、检索问题。
@@ -42,18 +42,18 @@ uv pip install PyYAML
 
 ```bash
 .venv/bin/python tools/kb_to_sqlite.py \
-  --vault . \
+  --vault kb \
   --out out/windows_app_baseline.db \
   --rebuild \
   --debug \
-  --log-file logs/kb_to_sqlite.debug.log
+  --log-file kb/logs/kb_to_sqlite.debug.log
 ```
 
 可选导出 JSONL：
 
 ```bash
 .venv/bin/python tools/kb_to_sqlite.py \
-  --vault . \
+  --vault kb \
   --out out/windows_app_baseline.db \
   --rebuild \
   --export-jsonl out/documents.jsonl \
@@ -76,8 +76,8 @@ uv pip install PyYAML
 ### 常见 debug 日志
 
 ```text
-DEBUG [wabk] loaded doc path=01_应用/Google Chrome.md type=app title=Google Chrome links=12 sections=13
-DEBUG [wabk.sqlite] insert document path=02_服务/gupdate.md type=service title=gupdate
+DEBUG [wabk] loaded doc path=kb/01_应用/Google Chrome.md type=app title=Google Chrome links=12 sections=13
+DEBUG [wabk.sqlite] insert document path=kb/02_服务/gupdate.md type=service title=gupdate
 DEBUG [wabk.sqlite] populate FTS index
 INFO  [wabk.sqlite] SQLite build finished: out/windows_app_baseline.db
 ```
@@ -90,10 +90,10 @@ INFO  [wabk.sqlite] SQLite build finished: out/windows_app_baseline.db
 
 ```bash
 .venv/bin/python tools/kb_to_neo4j.py \
-  --vault . \
+  --vault kb \
   --out out/windows_app_baseline.cypher \
   --debug \
-  --log-file logs/kb_to_neo4j.debug.log
+  --log-file kb/logs/kb_to_neo4j.debug.log
 ```
 
 生成结果可以复制到 Neo4j Browser 执行，也可以用 `cypher-shell` 执行。
@@ -106,7 +106,7 @@ cypher-shell -a bolt://localhost:7687 -u neo4j -p password -f out/windows_app_ba
 
 ```bash
 .venv/bin/python tools/kb_to_neo4j.py \
-  --vault . \
+  --vault kb \
   --out out/windows_app_baseline.cypher \
   --execute \
   --uri bolt://localhost:7687 \
@@ -157,7 +157,7 @@ target_text
 先构建 SQLite：
 
 ```bash
-.venv/bin/python tools/kb_to_sqlite.py --vault . --out out/windows_app_baseline.db --rebuild
+.venv/bin/python tools/kb_to_sqlite.py --vault kb --out out/windows_app_baseline.db --rebuild
 ```
 
 启动服务：
@@ -168,7 +168,7 @@ target_text
   --host 0.0.0.0 \
   --port 8000 \
   --debug \
-  --log-file logs/api_service.debug.log
+  --log-file kb/logs/api_service.debug.log
 ```
 
 ### API 端点
@@ -207,10 +207,10 @@ curl "http://127.0.0.1:8000/stats"
 ```bash
 # 1. 在 Obsidian 中维护 Markdown 画像
 # 2. 转 SQLite
-.venv/bin/python tools/kb_to_sqlite.py --vault . --out out/windows_app_baseline.db --rebuild --debug
+.venv/bin/python tools/kb_to_sqlite.py --vault kb --out out/windows_app_baseline.db --rebuild --debug
 
 # 3. 转 Neo4j Cypher
-.venv/bin/python tools/kb_to_neo4j.py --vault . --out out/windows_app_baseline.cypher --debug
+.venv/bin/python tools/kb_to_neo4j.py --vault kb --out out/windows_app_baseline.cypher --debug
 
 # 4. 启动 API 服务
 .venv/bin/python tools/api_service.py --db out/windows_app_baseline.db --host 0.0.0.0 --port 8000 --debug

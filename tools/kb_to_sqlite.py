@@ -2,8 +2,8 @@
 """Convert the Windows App Security Baseline Obsidian vault to SQLite.
 
 Examples:
-  python tools/kb_to_sqlite.py --vault . --out out/windows_app_baseline.db --rebuild --debug
-  python tools/kb_to_sqlite.py --vault . --out out/windows_app_baseline.db --export-jsonl out/documents.jsonl
+  python tools/kb_to_sqlite.py --vault kb --out out/windows_app_baseline.db --rebuild --debug
+  python tools/kb_to_sqlite.py --vault kb --out out/windows_app_baseline.db --export-jsonl out/documents.jsonl
 """
 from __future__ import annotations
 
@@ -311,7 +311,7 @@ def build_sqlite(vault: Path, out: Path, rebuild: bool, export_jsonl_path: Path 
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Convert Windows App Security Baseline Markdown vault to SQLite.")
-    p.add_argument("--vault", default=".", help="Obsidian vault root path")
+    p.add_argument("--vault", default="kb", help="Obsidian vault root path (knowledge base)")
     p.add_argument("--out", default="out/windows_app_baseline.db", help="Output SQLite database path")
     p.add_argument("--rebuild", action="store_true", help="Clear existing rows before import")
     p.add_argument("--export-jsonl", default=None, help="Optional JSONL export path")

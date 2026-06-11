@@ -45,7 +45,7 @@ Obsidian Links -> graph edges
 
 ```json
 {
-  "path": "01_应用/Google Chrome.md",
+  "path": "kb/01_应用/Google Chrome.md",
   "title": "Google Chrome",
   "type": "app",
   "frontmatter": {},

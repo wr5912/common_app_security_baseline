@@ -5,8 +5,8 @@ Default behavior writes a Cypher file. Optional --execute imports directly if th
 neo4j Python driver is installed and a Neo4j server is reachable.
 
 Examples:
-  python tools/kb_to_neo4j.py --vault . --out out/windows_app_baseline.cypher --debug
-  python tools/kb_to_neo4j.py --vault . --execute --uri bolt://localhost:7687 --user neo4j --password password --debug
+  python tools/kb_to_neo4j.py --vault kb --out out/windows_app_baseline.cypher --debug
+  python tools/kb_to_neo4j.py --vault kb --execute --uri bolt://localhost:7687 --user neo4j --password password --debug
 """
 from __future__ import annotations
 
@@ -172,7 +172,7 @@ def execute_cypher(cypher_text: str, uri: str, user: str, password: str, databas
 
 def parse_args(argv: list[str]) -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Convert Windows App Security Baseline Markdown vault to Neo4j Cypher/import.")
-    p.add_argument("--vault", default=".", help="Obsidian vault root path")
+    p.add_argument("--vault", default="kb", help="Obsidian vault root path (knowledge base)")
     p.add_argument("--out", default="out/windows_app_baseline.cypher", help="Output Cypher file path")
     p.add_argument("--no-unresolved", action="store_true", help="Do not create placeholder nodes for unresolved Obsidian links")
     p.add_argument("--execute", action="store_true", help="Execute generated Cypher against Neo4j")

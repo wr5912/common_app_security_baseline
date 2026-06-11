@@ -225,11 +225,11 @@ CLAUDE.local.md
 *.swo
 
 # Obsidian local state
-.obsidian/workspace*.json
-.obsidian/cache/
-.obsidian/plugins/
-.obsidian/trash/
+kb/.obsidian/workspace*.json
+kb/.obsidian/cache/
+kb/.obsidian/plugins/
+kb/.obsidian/trash/
 
 # Generated knowledge-base artifacts
 out/
-logs/*.debug.log
+kb/logs/*.debug.log

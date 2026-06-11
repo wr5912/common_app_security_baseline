@@ -6,8 +6,8 @@
 
 - 项目名称：`终端应用安全基线画像库`
 - 主要目标：维护一套面向人和 AI 共同维护的 **Windows / Linux 终端**应用 / 服务 / 进程 / 父子关系 / 持久化（注册表 / systemd / cron）/ 文件 / 网络 / 安全基线 Markdown Wiki，并可抽取为 SQLite、Neo4j、API 检索等结构化派生数据。
-- 关键模块：`00_总览/`、`01_应用/`、`02_服务/`、`03_进程/`、`04_父子进程关系/`、`05_启动方式/`、`06_注册表画像/`、`07_文件与数据/`、`08_网络行为/`、`09_安全基线/`、`10_来源与证据/`、`11_抽取与图谱/`、`12_Linux持久化与配置/`、`99_模板/`、`raw_sources/`、`logs/`、`tools/`。
-- 必读文档：`README.md`、`00_总览/终端应用安全基线画像库 AI 维护规范.md`、`AGENTS.md`、`00_总览/终端应用安全基线画像库总览.md`、`00_总览/维护工作流.md`、对应类型模板（`99_模板/*`）、相关实体页面、`logs/变更日志.md`。
+- 关键模块：`kb/00_总览/`、`kb/01_应用/`、`kb/02_服务/`、`kb/03_进程/`、`kb/04_父子进程关系/`、`kb/05_启动方式/`、`kb/06_注册表画像/`、`kb/07_文件与数据/`、`kb/08_网络行为/`、`kb/09_安全基线/`、`kb/10_来源与证据/`、`kb/11_抽取与图谱/`、`kb/12_Linux持久化与配置/`、`kb/99_模板/`、`kb/raw_sources/`、`kb/logs/`、`tools/`。
+- 必读文档：`README.md`、`kb/00_总览/终端应用安全基线画像库 AI 维护规范.md`、`AGENTS.md`、`kb/00_总览/终端应用安全基线画像库总览.md`、`kb/00_总览/维护工作流.md`、对应类型模板（`kb/99_模板/*`）、相关实体页面、`kb/logs/变更日志.md`。
 
 ## 项目专属质量策略
 
@@ -16,15 +16,15 @@
   - 安全判断不得在无来源的情况下从“可疑”升级为“恶意”；必须尽量保留误报条件、业务上下文和证据需求。
   - 不确定的字段标记 `confidence: low` 或 `status: needs_review`，不得用虚假确定性填满页面。
   - 一个页面只表达一个主要实体或关系；父子进程关系等“关系类”判断必须单独建文档。
-  - 每个画像页面必须标注 `os: windows | linux | cross`；平台专属持久化位置分目录承载（Windows=`06_注册表画像/`，Linux=`12_Linux持久化与配置/`），跨平台方法论页用 `os: cross`。
-  - 维护双链、索引入口和 `logs/变更日志.md`，不删除旧判断而不记录原因。
-- 允许破坏兼容的边界：可以调整 Markdown 模板与 `tools/` 抽取脚本；但改动 frontmatter 字段、`type` 枚举、目录结构或 API 输出契约时，必须同步 `README.md`、`00_总览/终端应用安全基线画像库 AI 维护规范.md`、`11_抽取与图谱/` 抽取规范和样例数据。
+  - 每个画像页面必须标注 `os: windows | linux | cross`；平台专属持久化位置分目录承载（Windows=`kb/06_注册表画像/`，Linux=`kb/12_Linux持久化与配置/`），跨平台方法论页用 `os: cross`。
+  - 维护双链、索引入口和 `kb/logs/变更日志.md`，不删除旧判断而不记录原因。
+- 允许破坏兼容的边界：可以调整 Markdown 模板与 `tools/` 抽取脚本；但改动 frontmatter 字段、`type` 枚举、目录结构或 API 输出契约时，必须同步 `README.md`、`kb/00_总览/终端应用安全基线画像库 AI 维护规范.md`、`kb/11_抽取与图谱/` 抽取规范和样例数据。
 - 旧设计清理策略：本项目以知识库维护为主，`.codex/rules/` 中偏 Agent runtime 的 typed-output / backend-owned 字段契约只在 `tools/` 或未来 Agent 流程中适用；普通 Markdown 维护任务不强制套用这些工程后端约束。
 
 ## 项目验证入口
 
-- 局部开发验证：`.venv/bin/python tools/kb_to_sqlite.py --vault . --out out/windows_app_baseline.db --rebuild --debug --log-file logs/kb_to_sqlite.debug.log`
-- 主流程验证：在上一步基础上运行 `.venv/bin/python tools/kb_to_neo4j.py --vault . --out out/windows_app_baseline.cypher --debug --log-file logs/kb_to_neo4j.debug.log`；需要服务时再 smoke `tools/api_service.py`。
+- 局部开发验证：`.venv/bin/python tools/kb_to_sqlite.py --vault kb --out out/windows_app_baseline.db --rebuild --debug --log-file kb/logs/kb_to_sqlite.debug.log`
+- 主流程验证：在上一步基础上运行 `.venv/bin/python tools/kb_to_neo4j.py --vault kb --out out/windows_app_baseline.cypher --debug --log-file kb/logs/kb_to_neo4j.debug.log`；需要服务时再 smoke `tools/api_service.py`。
 - 完整验证硬门：未配置（计划由 `tools/validate_wiki.py` 等 Markdown 结构校验脚本承担；脚本稳定前以人工审核 frontmatter / `type` / 双链 / 索引 / 变更日志为准）。
 - 覆盖清单或测试 manifest：未配置。
 
@@ -34,7 +34,7 @@
 
 - PR 对比基线：未配置。
 - 主分支 push 对比基线：未配置。
-- 旧债处理策略：通过 `logs/变更日志.md` 和 `logs/` 待办记录跟踪。
+- 旧债处理策略：通过 `kb/logs/变更日志.md` 和 `kb/logs/` 待办记录跟踪。
 - CI workflow：未配置。
 
 ## 配置与环境边界
@@ -42,7 +42,7 @@
 - 环境变量文件：未配置（暂无 `.env`）；如未来接入 Neo4j / MCP，真实 URL、账户、密码、header 只放本地私有文件。
 - 应用配置文件：`tools/` 脚本参数由命令行传入，无常驻 config。
 - Docker/Compose 入口：未配置。
-- 持久化数据路径：`out/`（SQLite / JSONL / Cypher 派生产物）与 `logs/*.debug.log` 均为生成物，已在 `.gitignore` 中忽略，不提交。
+- 持久化数据路径：`out/`（SQLite / JSONL / Cypher 派生产物）与 `kb/logs/*.debug.log` 均为生成物，已在 `.gitignore` 中忽略，不提交。
 - Python 环境：必须使用仓库本地 `.venv` 并以 `uv` 管理依赖（`uv venv .venv`、`uv pip install -r tools/requirements.txt`、`.venv/bin/python ...`），禁止直接使用 `pip`。
 - 密钥边界：真实 API key、Neo4j 密码、MCP header、本机私有路径和运行态数据不得提交。
 
@@ -55,5 +55,5 @@
 ## 专属边界
 
 - 不要把本项目的脚本名、私有路径、端口、产品不变量或临时策略写回 `AGENTS.md`、通用 `.codex/rules/` 或通用 skill。
-- `out/`、`logs/*.debug.log`、本地 Claude / Codex 个人配置不入库。
+- `out/`、`kb/logs/*.debug.log`、本地 Claude / Codex 个人配置不入库。
 - 如果其他项目复用本模板，必须重新填写自己的覆盖层、治理命令、base-ref 策略和环境边界。
