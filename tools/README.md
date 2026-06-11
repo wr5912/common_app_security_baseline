@@ -19,22 +19,19 @@
 
 ## 1. 安装依赖
 
-建议在画像库根目录执行：
+建议在画像库根目录执行（团队规范要求使用 `.venv` + `uv`，禁止直接 `pip`）：
 
 ```bash
-python -m venv .venv
-# Windows PowerShell
-.\.venv\Scripts\Activate.ps1
-# Linux/macOS
-# source .venv/bin/activate
-
-pip install -r tools/requirements.txt
+uv venv .venv
+uv pip install -r tools/requirements.txt
 ```
+
+后续运行工具统一使用 `.venv/bin/python`（Windows 为 `.venv\Scripts\python.exe`），除非当前 shell 已激活 `.venv`。
 
 如果只需要生成 SQLite，最低只需要：
 
 ```bash
-pip install PyYAML
+uv pip install PyYAML
 ```
 
 如果只生成 Neo4j Cypher 文件，不直连 Neo4j，也可以不安装 `neo4j` Python driver。
@@ -44,7 +41,7 @@ pip install PyYAML
 ## 2. Markdown 画像库转 SQLite
 
 ```bash
-python tools/kb_to_sqlite.py \
+.venv/bin/python tools/kb_to_sqlite.py \
   --vault . \
   --out out/windows_app_baseline.db \
   --rebuild \
@@ -55,7 +52,7 @@ python tools/kb_to_sqlite.py \
 可选导出 JSONL：
 
 ```bash
-python tools/kb_to_sqlite.py \
+.venv/bin/python tools/kb_to_sqlite.py \
   --vault . \
   --out out/windows_app_baseline.db \
   --rebuild \
@@ -92,7 +89,7 @@ INFO  [wabk.sqlite] SQLite build finished: out/windows_app_baseline.db
 ### 3.1 生成 Cypher 文件
 
 ```bash
-python tools/kb_to_neo4j.py \
+.venv/bin/python tools/kb_to_neo4j.py \
   --vault . \
   --out out/windows_app_baseline.cypher \
   --debug \
@@ -108,7 +105,7 @@ cypher-shell -a bolt://localhost:7687 -u neo4j -p password -f out/windows_app_ba
 ### 3.2 直连 Neo4j 执行
 
 ```bash
-python tools/kb_to_neo4j.py \
+.venv/bin/python tools/kb_to_neo4j.py \
   --vault . \
   --out out/windows_app_baseline.cypher \
   --execute \
@@ -160,13 +157,13 @@ target_text
 先构建 SQLite：
 
 ```bash
-python tools/kb_to_sqlite.py --vault . --out out/windows_app_baseline.db --rebuild
+.venv/bin/python tools/kb_to_sqlite.py --vault . --out out/windows_app_baseline.db --rebuild
 ```
 
 启动服务：
 
 ```bash
-python tools/api_service.py \
+.venv/bin/python tools/api_service.py \
   --db out/windows_app_baseline.db \
   --host 0.0.0.0 \
   --port 8000 \
@@ -210,13 +207,13 @@ curl "http://127.0.0.1:8000/stats"
 ```bash
 # 1. 在 Obsidian 中维护 Markdown 画像
 # 2. 转 SQLite
-python tools/kb_to_sqlite.py --vault . --out out/windows_app_baseline.db --rebuild --debug
+.venv/bin/python tools/kb_to_sqlite.py --vault . --out out/windows_app_baseline.db --rebuild --debug
 
 # 3. 转 Neo4j Cypher
-python tools/kb_to_neo4j.py --vault . --out out/windows_app_baseline.cypher --debug
+.venv/bin/python tools/kb_to_neo4j.py --vault . --out out/windows_app_baseline.cypher --debug
 
 # 4. 启动 API 服务
-python tools/api_service.py --db out/windows_app_baseline.db --host 0.0.0.0 --port 8000 --debug
+.venv/bin/python tools/api_service.py --db out/windows_app_baseline.db --host 0.0.0.0 --port 8000 --debug
 ```
 
 ---

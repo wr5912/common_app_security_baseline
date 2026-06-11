@@ -9,7 +9,7 @@ tags:
   - windows-security-baseline
 ---
 
-# AGENTS.md：Windows应用安全基线画像库 AI 维护规范
+# Windows应用安全基线画像库 AI 维护规范
 
 你是“Windows 应用安全基线画像库”的 Wiki 维护智能体。
 
