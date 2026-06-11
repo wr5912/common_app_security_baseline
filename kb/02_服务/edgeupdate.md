@@ -16,8 +16,10 @@ tags:
   - service/update
   - vendor/microsoft
   - windows/service
+source_row_ids:
+  - third-party-service-001
+  - win-builtin-092
 ---
-
 # edgeupdate
 
 ## 1. 服务说明
@@ -50,3 +52,16 @@ ImagePath 被篡改
 ## 6. 关联安全基线
 
 - [[更新器外联行为]]
+
+## 全量来源覆盖
+
+<!-- generated: windows-source-full-coverage -->
+
+- 来源行：`win-builtin-092`，第 104 行
+- 所属应用：[[Windows Service Host]]
+- 进程：[[svchost.exe]]
+- 父子关系：[[services.exe -> svchost.exe]]
+- 注册表：[[Windows 服务注册表画像]]
+- 文件：[[Windows 服务文件与数据画像]]
+- 网络：[[Windows 服务网络行为]]
+- 证据：[[Windows常见应用全量覆盖清单]]

@@ -1,56 +1,88 @@
 ---
 type: app
 os: windows
-app_id: app_microsoft_defender
-app_name_cn: Microsoft Defender
-app_name_en: Microsoft Defender
-vendor: Microsoft Corporation
-category: 安全软件
-subcategory: 杀毒/EDR
-is_system_builtin: true
+app_name_cn: "Microsoft Defender"
+app_name_en: "Microsoft Defender"
+vendor: "Microsoft Defender"
+category: "安全软件 / EDR / 杀毒"
 confidence: medium
 status: active
+source_row_ids:
+  - third-party-edr-001
+  - third-party-edr-002
+  - third-party-edr-003
+  - third-party-edr-004
+  - third-party-edr-005
 tags:
-  - app/security
-  - vendor/microsoft
-  - windows/builtin
+  - app/windows-source-full-coverage
 ---
 
 # Microsoft Defender
 
+<!-- generated: windows-source-full-coverage -->
+
 ## 1. 基本说明
 
-Microsoft Defender 是 Windows 内置安全能力，包括防病毒、网络检查、安全中心以及 Defender for Endpoint 相关服务。
+本页由 `/tmp/windows系统上常见应用.md` 的规范化覆盖清单生成，用于把来源中的应用、组件或厂商服务纳入终端安全基线画像。
 
 ## 2. 相关服务
 
-- [[WinDefend]]
+- [[SecurityHealthService]]
 - [[Sense]]
+- [[WdNisSvc]]
+- [[WinDefend]]
+- [[wscsvc]]
 
 ## 3. 相关进程
 
-- [[MsMpEng.exe]]
+- [[SecurityHealthService.exe]]
+- [[Sense.exe]]
+- [[WdNisSvc.exe]]
+- [[WinDefend.exe]]
+- [[wscsvc.exe]]
 
-## 4. 常见父子进程关系
+## 4. 常见启动方式
 
-- [[services.exe -> MsMpEng.exe]]
+- [[Windows Service]]
+- [[Scheduled Task]]
+- [[Run Key]]
 
-## 5. 正常行为画像
+## 5. 常见父子进程关系
 
-- 实时扫描文件。
-- 更新病毒库。
-- 监控进程、文件、注册表、网络行为。
-- 与安全中心或云端保护能力通信。
+- [[services.exe -> SecurityHealthService.exe]]
+- [[services.exe -> Sense.exe]]
+- [[services.exe -> WdNisSvc.exe]]
+- [[services.exe -> WinDefend.exe]]
+- [[services.exe -> wscsvc.exe]]
 
-## 6. 异常关注点
+## 6. 常见文件与数据
+
+- [[Microsoft Defender 文件与数据画像]]
+
+## 7. 常见注册表信息
+
+- [[Microsoft Defender 注册表画像]]
+- [[HKLM_SYSTEM_CurrentControlSet_Services]]
+
+## 8. 常见网络行为
+
+- [[Microsoft Defender 网络行为]]
+
+## 9. 异常关注点
 
 ```text
-WinDefend 服务异常停止
-MsMpEng.exe 路径或签名异常
-安全服务被关闭或配置被篡改
-攻击链中出现关闭 Defender 的命令
+服务二进制或主程序位于用户可写目录、临时目录、下载目录或网络共享
+服务启动账户、ImagePath、签名、命令行或网络目的地址与企业授权不一致
+安装、服务创建、首次外联、异常登录或权限提升在时间线上接近
 ```
 
-## 7. 关联安全基线
+## 10. 关联安全基线
 
-- [[Defender服务异常停止]]
+- [[第三方服务异常常驻]]
+- [[应用异常网络外联行为]]
+- [[应用敏感文件与配置访问异常]]
+
+## 11. 证据与来源
+
+- [[Microsoft Defender 画像证据记录]]
+- [[Windows常见应用全量覆盖清单]]

@@ -1,98 +1,82 @@
 ---
 type: app
 os: windows
-app_id: app_google_chrome
-app_name_cn: 谷歌浏览器
-app_name_en: Google Chrome
-vendor: Google LLC
-category: 浏览器
-subcategory: Chromium浏览器
-is_system_builtin: false
+app_name_cn: "Google Chrome"
+app_name_en: "Google Chrome"
+vendor: "Google Chrome"
+category: "浏览器 / 更新器"
 confidence: medium
 status: active
+source_row_ids:
+  - third-party-service-004
+  - third-party-service-005
+  - third-party-service-006
+  - third-party-service-007
 tags:
-  - app/browser
-  - vendor/google
-  - windows/app
+  - app/windows-source-full-coverage
 ---
 
 # Google Chrome
 
+<!-- generated: windows-source-full-coverage -->
+
 ## 1. 基本说明
 
-Google Chrome 是 Windows 上常见浏览器，主要用于网页访问、扩展运行、文件下载、账号同步、自动更新等。
+本页由 `/tmp/windows系统上常见应用.md` 的规范化覆盖清单生成，用于把来源中的应用、组件或厂商服务纳入终端安全基线画像。
 
-## 2. 常见安装路径
+## 2. 相关服务
 
-```text
-C:\Program Files\Google\Chrome\Application\chrome.exe
-C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
-%LOCALAPPDATA%\Google\Chrome\Application\chrome.exe
-```
-
-## 3. 相关服务
-
+- [[Google Chrome - GoogleUpdaterInternalService* 服务模式]]
+- [[Google Chrome - GoogleUpdaterService* 服务模式]]
 - [[gupdate]]
 - [[gupdatem]]
 
-## 4. 相关进程
+## 3. 相关进程
 
-- [[chrome.exe]]
 - [[GoogleUpdate.exe]]
+- [[GoogleUpdater.exe]]
+- [[GoogleUpdaterService.exe]]
 
-## 5. 常见启动方式
+## 4. 常见启动方式
 
 - [[Windows Service]]
 - [[Scheduled Task]]
-- 用户手动启动
-- 浏览器协议唤起
+- [[Run Key]]
 
-## 6. 常见父子进程关系
+## 5. 常见父子进程关系
 
-- [[explorer.exe -> chrome.exe]]
 - [[services.exe -> GoogleUpdate.exe]]
-- [[chrome.exe -> powershell.exe]]，少见，高关注
+- [[services.exe -> GoogleUpdater.exe]]
+- [[services.exe -> GoogleUpdaterService.exe]]
 
-## 7. 常见文件与数据
+## 6. 常见文件与数据
 
-- [[Chrome User Data]]
-- [[Chrome History]]
-- [[Chrome Cookies]]
+- [[Google Chrome 文件与数据画像]]
 
-## 8. 常见注册表信息
+## 7. 常见注册表信息
 
-- [[Run Keys]]
-- [[Uninstall Registry]]
+- [[Google Chrome 注册表画像]]
+- [[HKLM_SYSTEM_CurrentControlSet_Services]]
 
-## 9. 常见网络行为
+## 8. 常见网络行为
 
-- [[Google Update Network]]
-- [[Chrome Web Browsing Network]]
+- [[Google Chrome 网络行为]]
 
-## 10. 正常行为画像
-
-- 用户通过 `explorer.exe` 或快捷方式启动 `chrome.exe`。
-- 浏览器使用多进程架构，一个 `chrome.exe` 会拉起多个 `chrome.exe` 子进程。
-- 浏览器访问 HTTP/HTTPS/QUIC 网络。
-- 浏览器写入用户 Profile、缓存、Cookie、历史记录。
-- Google 更新器周期性检查和下载更新。
-
-## 11. 异常关注点
+## 9. 异常关注点
 
 ```text
-chrome.exe 从 Temp、Downloads、Public 等异常目录启动
-chrome.exe 拉起 powershell.exe / cmd.exe / wscript.exe / mshta.exe
-chrome.exe 使用异常 --proxy-server 或 --load-extension 参数
-GoogleUpdate.exe 路径、签名、参数异常
-更新器访问非预期域名
+服务二进制或主程序位于用户可写目录、临时目录、下载目录或网络共享
+服务启动账户、ImagePath、签名、命令行或网络目的地址与企业授权不一致
+安装、服务创建、首次外联、异常登录或权限提升在时间线上接近
 ```
 
-## 12. 关联安全基线
+## 10. 关联安全基线
 
-- [[浏览器拉起脚本解释器]]
-- [[更新器外联行为]]
+- [[第三方服务异常常驻]]
+- [[应用异常网络外联行为]]
+- [[应用敏感文件与配置访问异常]]
 
-## 13. 证据与来源
+## 11. 证据与来源
 
-- 来源类型：通用经验 / 待企业环境观测验证
-- 可信度：medium
+- [[Google Chrome 画像证据记录]]
+- [[Windows常见应用全量覆盖清单]]

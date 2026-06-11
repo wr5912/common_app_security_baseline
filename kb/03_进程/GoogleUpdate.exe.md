@@ -1,24 +1,30 @@
 ---
 type: process
 os: windows
-process_name: GoogleUpdate.exe
+process_name: "GoogleUpdate.exe"
 app: "[[Google Chrome]]"
-vendor: Google LLC
+vendor: "Google Chrome"
 role:
-  - 更新器
-risk_level: low
+  - service_process
+risk_level: medium
 confidence: medium
 status: active
+source_row_ids:
+  - third-party-service-004
+  - third-party-service-005
+  - third-party-service-006
+  - third-party-service-007
 tags:
-  - process/updater
-  - vendor/google
+  - process/windows-source-full-coverage
 ---
 
 # GoogleUpdate.exe
 
+<!-- generated: windows-source-full-coverage -->
+
 ## 1. 进程说明
 
-`GoogleUpdate.exe` 是 Google 软件更新相关进程，常由 Google 更新服务或计划任务启动。
+本进程用于承载 [[Google Chrome]] 在 Windows 服务或用户交互场景中的业务逻辑。若来源仅提供服务名而未给出精确 ImagePath，实际二进制路径必须以后续终端观测为准。
 
 ## 2. 所属应用
 
@@ -27,30 +33,17 @@ tags:
 ## 3. 常见父进程
 
 - [[services.exe]]
+- [[explorer.exe]]
 
-## 4. 常见服务
-
-- [[gupdate]]
-- [[gupdatem]]
-
-## 5. 常见启动参数
+## 4. 异常行为
 
 ```text
-/svc
-/medsvc
-/c
+从用户可写路径、临时目录、下载目录或网络共享启动
+签名、厂商、版本或哈希与应用画像不一致
+启动后立即连接未知外部地址、拉起脚本解释器或访问敏感配置
 ```
 
-## 6. 常见父子关系
+## 5. 关联安全基线
 
-- [[services.exe -> GoogleUpdate.exe]]
-
-## 7. 异常关注点
-
-```text
-路径不在 Google Update 目录
-签名不是 Google LLC
-由异常父进程启动
-访问非预期域名
-参数异常或带脚本执行参数
-```
+- [[第三方服务异常常驻]]
+- [[应用异常网络外联行为]]

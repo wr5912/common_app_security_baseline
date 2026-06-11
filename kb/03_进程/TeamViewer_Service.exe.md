@@ -3,78 +3,45 @@ type: process
 os: windows
 process_name: "TeamViewer_Service.exe"
 app: "[[TeamViewer]]"
-vendor: "TeamViewer Germany GmbH"
+vendor: "TeamViewer"
 role:
-  - "远控服务进程"
+  - service_process
 risk_level: medium
-confidence: low
-status: needs_review
+confidence: medium
+status: active
+source_row_ids:
+  - third-party-rmm-001
+  - third-party-rmm-002
 tags:
-  - windows/process
-  - process/scenario-baseline
+  - process/windows-source-full-coverage
 ---
 
 # TeamViewer_Service.exe
 
+<!-- generated: windows-source-full-coverage -->
+
 ## 1. 进程说明
 
-`TeamViewer_Service.exe` 是 [[TeamViewer]] 相关进程，常见角色为：远控服务进程。当前画像用于终端基线识别，具体路径、签名和命令行参数需要结合真实观测校验。
+本进程用于承载 [[TeamViewer]] 在 Windows 服务或用户交互场景中的业务逻辑。若来源仅提供服务名而未给出精确 ImagePath，实际二进制路径必须以后续终端观测为准。
 
 ## 2. 所属应用
 
 - [[TeamViewer]]
 
-## 3. 常见路径
-
-```text
-C:\Program Files\TeamViewer\TeamViewer_Service.exe
-```
-
-## 4. 常见父进程
+## 3. 常见父进程
 
 - [[services.exe]]
 - [[explorer.exe]]
 
-## 5. 常见子进程
-
-- 同应用组件、更新器、浏览器子进程或网络隧道组件，取决于应用类型。
-
-## 6. 常见启动参数
+## 4. 异常行为
 
 ```text
-未统一；以终端命令行观测为准。
+从用户可写路径、临时目录、下载目录或网络共享启动
+签名、厂商、版本或哈希与应用画像不一致
+启动后立即连接未知外部地址、拉起脚本解释器或访问敏感配置
 ```
 
-## 7. 参数安全关注
+## 5. 关联安全基线
 
-- 异常代理、脚本执行、隐藏窗口、临时目录执行、非预期配置文件路径。
-
-## 8. 常见文件行为
-
-- 读取安装目录、配置目录、日志目录和用户数据目录。
-
-## 9. 常见注册表行为
-
-- 读取卸载信息、服务注册项、自动启动项或应用配置项。
-
-## 10. 常见网络行为
-
-- 与更新、管理端、远控、VPN、日志转发或业务服务目的地址通信。
-
-## 11. 异常行为
-
-```text
-从非标准路径运行
-签名厂商异常
-由 Office、浏览器、脚本解释器等异常父进程启动
-连接未知公网管理端或代理节点
-短时间内伴随服务创建、凭据访问或数据打包
-```
-
-## 12. 关联安全基线
-
-- [[远控软件服务常驻]]
-
-## 13. 相关服务
-
-- [[TeamViewer 服务]]
+- [[第三方服务异常常驻]]
+- [[应用异常网络外联行为]]

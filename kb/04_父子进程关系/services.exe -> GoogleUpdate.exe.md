@@ -5,53 +5,37 @@ parent_process: "[[services.exe]]"
 child_process: "[[GoogleUpdate.exe]]"
 relation: service_start
 normality: normal
-risk_level: low
+risk_level: medium
 confidence: medium
 status: active
+source_row_ids:
+  - third-party-service-004
+  - third-party-service-005
+  - third-party-service-006
+  - third-party-service-007
 tags:
-  - relation/service-start
-  - service/update
-  - vendor/google
+  - relation/windows-source-full-coverage
 ---
 
 # services.exe -> GoogleUpdate.exe
 
+<!-- generated: windows-source-full-coverage -->
+
 ## 1. 关系说明
 
-`services.exe` 启动 `GoogleUpdate.exe` 通常对应 Google 更新服务，例如 [[gupdate]] 或 [[gupdatem]]。
+`services.exe` 启动 [[GoogleUpdate.exe]] 是 [[Google Chrome]] 或其服务组件的常见服务启动链路。具体是否正常必须结合服务注册表、ImagePath、签名、启动账户、命令行和资产授权判断。
 
-## 2. 父进程
+## 2. 高风险场景
+
+```text
+子进程路径位于用户可写目录、临时目录、下载目录或网络共享
+服务项新建或 ImagePath 变化后立即外联
+服务进程与应用授权、签名厂商或资产角色不一致
+```
+
+## 3. 关联画像
 
 - [[services.exe]]
-
-## 3. 子进程
-
 - [[GoogleUpdate.exe]]
-
-## 4. 正常条件
-
-```text
-服务名为 gupdate 或 gupdatem
-路径位于 Google Update 常见目录
-签名为 Google LLC
-参数为 /svc 或 /medsvc
-启动账户为 LocalSystem
-```
-
-## 5. 异常条件
-
-```text
-路径异常
-签名异常
-参数异常
-服务 ImagePath 被篡改
-访问非预期域名
-```
-
-## 6. 关联画像
-
 - [[Google Chrome]]
-- [[gupdate]]
-- [[gupdatem]]
-- [[GoogleUpdate.exe]]
-- [[更新器外联行为]]
+- [[第三方服务异常常驻]]

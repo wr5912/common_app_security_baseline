@@ -16,8 +16,9 @@ tags:
   - service/container
   - app/developer-tool
   - vendor/docker
+source_row_ids:
+  - third-party-service-026
 ---
-
 # com.docker.service
 
 ## 1. 服务说明
@@ -46,3 +47,16 @@ tags:
 Docker API 暴露或被滥用
 容器内运行异常工具
 ```
+
+## 全量来源覆盖
+
+<!-- generated: windows-source-full-coverage -->
+
+- 来源行：`third-party-service-026`，第 379 行
+- 所属应用：[[Docker Desktop]]
+- 进程：[[com.docker.service.exe]]
+- 父子关系：[[services.exe -> com.docker.service.exe]]
+- 注册表：[[Windows 服务注册表画像]]
+- 文件：[[Windows 服务文件与数据画像]]
+- 网络：[[Windows 服务网络行为]]
+- 证据：[[Windows常见应用全量覆盖清单]]

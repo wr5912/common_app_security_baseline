@@ -14,8 +14,9 @@ tags:
   - app/web-server
   - vendor/nginx
   - linux/app
+source_row_ids:
+  - third-party-service-066
 ---
-
 # nginx
 
 ## 1. 基本说明
@@ -51,3 +52,19 @@ worker 进程拉起 shell / 解释器（如 nginx -> sh -> curl）
 unit 的 ExecStart 指向非标准路径
 监听非预期端口或对外暴露管理接口
 ```
+
+## 全量来源覆盖
+
+<!-- generated: windows-source-full-coverage -->
+
+- 来源行：`third-party-service-066`
+- 相关服务：
+- [[nginx Service]]
+- 相关进程：
+- [[nginx.exe]]
+- 父子关系：
+- [[services.exe -> nginx.exe]]
+- 文件：[[nginx 文件与数据画像]]
+- 注册表：[[nginx 注册表画像]]
+- 网络：[[nginx 网络行为]]
+- 证据：[[nginx 画像证据记录]]

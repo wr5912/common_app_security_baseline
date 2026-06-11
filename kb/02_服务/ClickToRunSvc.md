@@ -16,8 +16,9 @@ tags:
   - service/office
   - service/update
   - vendor/microsoft
+source_row_ids:
+  - third-party-office-001
 ---
-
 # ClickToRunSvc
 
 ## 1. 服务说明
@@ -46,3 +47,16 @@ tags:
 与 Office 安装路径不匹配
 短时间内伴随 Office 子进程异常执行
 ```
+
+## 全量来源覆盖
+
+<!-- generated: windows-source-full-coverage -->
+
+- 来源行：`third-party-office-001`，第 311 行
+- 所属应用：[[Microsoft Office]]
+- 进程：[[ClickToRunSvc.exe]]
+- 父子关系：[[services.exe -> ClickToRunSvc.exe]]
+- 注册表：[[Windows 服务注册表画像]]
+- 文件：[[Windows 服务文件与数据画像]]
+- 网络：[[Windows 服务网络行为]]
+- 证据：[[Windows常见应用全量覆盖清单]]

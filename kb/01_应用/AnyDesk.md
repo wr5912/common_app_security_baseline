@@ -1,62 +1,72 @@
 ---
 type: app
 os: windows
-app_id: app_anydesk
-app_name_cn: AnyDesk
-app_name_en: AnyDesk
-vendor: AnyDesk Software GmbH
-category: 远控
-subcategory: 远程控制
-is_system_builtin: false
+app_name_cn: "AnyDesk"
+app_name_en: "AnyDesk"
+vendor: "AnyDesk"
+category: "远程控制 / 运维工具 / RMM"
 confidence: medium
 status: active
+source_row_ids:
+  - third-party-rmm-003
 tags:
-  - app/remote-control
-  - vendor/anydesk
-  - windows/app
+  - app/windows-source-full-coverage
 ---
 
 # AnyDesk
 
+<!-- generated: windows-source-full-coverage -->
+
 ## 1. 基本说明
 
-AnyDesk 是常见远程控制软件，可用于远程桌面、无人值守访问、远程运维。安全分析中，远控软件既可能是合法运维工具，也可能被攻击者滥用。
+本页由 `/tmp/windows系统上常见应用.md` 的规范化覆盖清单生成，用于把来源中的应用、组件或厂商服务纳入终端安全基线画像。
 
 ## 2. 相关服务
 
-- [[AnyDesk Service]]
+- [[AnyDesk - AnyDesk Service / AnyDesk*Service* 服务模式]]
 
 ## 3. 相关进程
 
-- [[AnyDesk.exe]]
+- [[AnyDeskService.exe]]
 
 ## 4. 常见启动方式
 
-- 用户手动启动
-- Windows 服务常驻
-- 安装后开机自启
+- [[Windows Service]]
+- [[Scheduled Task]]
+- [[Run Key]]
 
 ## 5. 常见父子进程关系
 
-- [[services.exe -> AnyDesk.exe]]
+- [[services.exe -> AnyDeskService.exe]]
 
-## 6. 正常行为画像
+## 6. 常见文件与数据
 
-- 监听或主动连接远程控制基础设施。
-- 访问屏幕、键盘、鼠标、剪贴板。
-- 写入配置文件和连接日志。
-- 作为服务运行以支持无人值守连接。
+- [[AnyDesk 文件与数据画像]]
 
-## 7. 异常关注点
+## 7. 常见注册表信息
+
+- [[AnyDesk 注册表画像]]
+- [[HKLM_SYSTEM_CurrentControlSet_Services]]
+
+## 8. 常见网络行为
+
+- [[AnyDesk 网络行为]]
+
+## 9. 异常关注点
 
 ```text
-非 IT 管理终端出现 AnyDesk 服务常驻
-AnyDesk 从临时目录运行
-短时间内新安装并外联
-伴随账户创建、权限提升、文件打包、数据外传
-被脚本或攻击工具静默安装
+服务二进制或主程序位于用户可写目录、临时目录、下载目录或网络共享
+服务启动账户、ImagePath、签名、命令行或网络目的地址与企业授权不一致
+安装、服务创建、首次外联、异常登录或权限提升在时间线上接近
 ```
 
-## 8. 关联安全基线
+## 10. 关联安全基线
 
-- [[远控软件服务常驻]]
+- [[第三方服务异常常驻]]
+- [[应用异常网络外联行为]]
+- [[应用敏感文件与配置访问异常]]
+
+## 11. 证据与来源
+
+- [[AnyDesk 画像证据记录]]
+- [[Windows常见应用全量覆盖清单]]

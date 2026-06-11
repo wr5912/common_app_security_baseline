@@ -16,8 +16,9 @@ tags:
   - service/update
   - vendor/google
   - windows/service
+source_row_ids:
+  - third-party-service-004
 ---
-
 # gupdate
 
 ## 1. 服务说明
@@ -86,3 +87,16 @@ GoogleUpdate.exe 无签名或签名异常
 
 - [[services.exe -> GoogleUpdate.exe]]
 - [[更新器外联行为]]
+
+## 全量来源覆盖
+
+<!-- generated: windows-source-full-coverage -->
+
+- 来源行：`third-party-service-004`，第 293 行
+- 所属应用：[[Google Chrome]]
+- 进程：[[GoogleUpdate.exe]]
+- 父子关系：[[services.exe -> GoogleUpdate.exe]]
+- 注册表：[[Windows 服务注册表画像]]
+- 文件：[[Windows 服务文件与数据画像]]
+- 网络：[[Windows 服务网络行为]]
+- 证据：[[Windows常见应用全量覆盖清单]]

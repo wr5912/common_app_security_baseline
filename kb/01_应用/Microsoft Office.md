@@ -1,65 +1,72 @@
 ---
 type: app
 os: windows
-app_id: app_microsoft_office
-app_name_cn: Microsoft Office
-app_name_en: Microsoft Office
-vendor: Microsoft Corporation
-category: 办公
-subcategory: 文档处理
-is_system_builtin: false
+app_name_cn: "Microsoft Office"
+app_name_en: "Microsoft Office"
+vendor: "Microsoft Office"
+category: "Office / 协作办公"
 confidence: medium
 status: active
+source_row_ids:
+  - third-party-office-001
 tags:
-  - app/office
-  - vendor/microsoft
-  - windows/app
+  - app/windows-source-full-coverage
 ---
 
 # Microsoft Office
 
+<!-- generated: windows-source-full-coverage -->
+
 ## 1. 基本说明
 
-Microsoft Office 是常见办公套件，包括 Word、Excel、PowerPoint、Outlook 等。安全分析中，Office 进程拉起脚本解释器、下载器、压缩工具、系统工具时需要重点关注。
+本页由 `/tmp/windows系统上常见应用.md` 的规范化覆盖清单生成，用于把来源中的应用、组件或厂商服务纳入终端安全基线画像。
 
-## 2. 常见相关服务
+## 2. 相关服务
 
 - [[ClickToRunSvc]]
 
 ## 3. 相关进程
 
-- [[winword.exe]]
-- `excel.exe`，待建页面
-- `powerpnt.exe`，待建页面
-- `outlook.exe`，待建页面
+- [[ClickToRunSvc.exe]]
 
 ## 4. 常见启动方式
 
-- 用户双击文档
-- Office Click-to-Run 服务维护和更新
-- 邮件附件打开
-- 浏览器下载后打开
+- [[Windows Service]]
+- [[Scheduled Task]]
+- [[Run Key]]
 
-## 5. 高关注父子进程关系
+## 5. 常见父子进程关系
 
-- [[winword.exe -> powershell.exe]]
+- [[services.exe -> ClickToRunSvc.exe]]
 
-## 6. 正常行为画像
+## 6. 常见文件与数据
 
-- 用户打开文档。
-- Office 加载模板、插件、字体、最近文档。
-- Office 访问用户文档目录、临时目录、注册表配置。
+- [[Microsoft Office 文件与数据画像]]
 
-## 7. 异常关注点
+## 7. 常见注册表信息
+
+- [[Microsoft Office 注册表画像]]
+- [[HKLM_SYSTEM_CurrentControlSet_Services]]
+
+## 8. 常见网络行为
+
+- [[Microsoft Office 网络行为]]
+
+## 9. 异常关注点
 
 ```text
-Office 进程拉起 powershell.exe / cmd.exe / wscript.exe / mshta.exe
-Office 进程下载远程内容后执行
-Office 进程写入 Run Key / 计划任务 / 服务
-Office 进程落地可执行文件或脚本
-宏启用后出现外联和子进程执行
+服务二进制或主程序位于用户可写目录、临时目录、下载目录或网络共享
+服务启动账户、ImagePath、签名、命令行或网络目的地址与企业授权不一致
+安装、服务创建、首次外联、异常登录或权限提升在时间线上接近
 ```
 
-## 8. 关联安全基线
+## 10. 关联安全基线
 
-- [[Office拉起脚本解释器]]
+- [[第三方服务异常常驻]]
+- [[应用异常网络外联行为]]
+- [[应用敏感文件与配置访问异常]]
+
+## 11. 证据与来源
+
+- [[Microsoft Office 画像证据记录]]
+- [[Windows常见应用全量覆盖清单]]

@@ -1,41 +1,536 @@
 ---
 type: app
 os: windows
-app_id: windows-service-host
-app_name_cn: Windows 服务宿主
-app_name_en: Windows Service Host
-vendor: Microsoft Corporation
-category: 系统组件
-subcategory: 服务宿主
-is_system_builtin: true
+app_name_cn: "Windows Service Host"
+app_name_en: "Windows Service Host"
+vendor: "Windows Service Host"
+category: "1. Windows 内置系统服务基线"
 confidence: medium
 status: active
+source_row_ids:
+  - win-builtin-001
+  - win-builtin-002
+  - win-builtin-003
+  - win-builtin-004
+  - win-builtin-005
+  - win-builtin-006
+  - win-builtin-007
+  - win-builtin-008
+  - win-builtin-009
+  - win-builtin-010
+  - win-builtin-011
+  - win-builtin-012
+  - win-builtin-013
+  - win-builtin-014
+  - win-builtin-015
+  - win-builtin-016
+  - win-builtin-017
+  - win-builtin-018
+  - win-builtin-019
+  - win-builtin-020
+  - win-builtin-021
+  - win-builtin-022
+  - win-builtin-023
+  - win-builtin-024
+  - win-builtin-025
+  - win-builtin-026
+  - win-builtin-027
+  - win-builtin-028
+  - win-builtin-029
+  - win-builtin-030
+  - win-builtin-031
+  - win-builtin-032
+  - win-builtin-033
+  - win-builtin-034
+  - win-builtin-035
+  - win-builtin-036
+  - win-builtin-037
+  - win-builtin-038
+  - win-builtin-039
+  - win-builtin-040
+  - win-builtin-041
+  - win-builtin-042
+  - win-builtin-043
+  - win-builtin-044
+  - win-builtin-045
+  - win-builtin-046
+  - win-builtin-047
+  - win-builtin-048
+  - win-builtin-049
+  - win-builtin-050
+  - win-builtin-051
+  - win-builtin-052
+  - win-builtin-053
+  - win-builtin-054
+  - win-builtin-055
+  - win-builtin-056
+  - win-builtin-057
+  - win-builtin-058
+  - win-builtin-059
+  - win-builtin-060
+  - win-builtin-061
+  - win-builtin-062
+  - win-builtin-063
+  - win-builtin-064
+  - win-builtin-065
+  - win-builtin-066
+  - win-builtin-067
+  - win-builtin-068
+  - win-builtin-069
+  - win-builtin-070
+  - win-builtin-071
+  - win-builtin-072
+  - win-builtin-073
+  - win-builtin-074
+  - win-builtin-075
+  - win-builtin-076
+  - win-builtin-077
+  - win-builtin-078
+  - win-builtin-079
+  - win-builtin-080
+  - win-builtin-081
+  - win-builtin-082
+  - win-builtin-083
+  - win-builtin-084
+  - win-builtin-085
+  - win-builtin-086
+  - win-builtin-087
+  - win-builtin-088
+  - win-builtin-089
+  - win-builtin-090
+  - win-builtin-091
+  - win-builtin-092
+  - win-builtin-093
+  - win-builtin-094
+  - win-builtin-095
+  - win-builtin-096
+  - win-builtin-097
+  - win-builtin-098
+  - win-builtin-099
+  - win-builtin-100
+  - win-builtin-101
+  - win-builtin-102
+  - win-builtin-103
+  - win-builtin-104
+  - win-builtin-105
+  - win-builtin-106
+  - win-builtin-107
+  - win-builtin-108
+  - win-builtin-109
+  - win-builtin-110
+  - win-builtin-111
+  - win-builtin-112
+  - win-builtin-113
+  - win-builtin-114
+  - win-builtin-115
+  - win-builtin-116
+  - win-builtin-117
+  - win-builtin-118
+  - win-builtin-119
+  - win-builtin-120
+  - win-builtin-121
+  - win-builtin-122
+  - win-builtin-123
+  - win-builtin-124
+  - win-builtin-125
+  - win-builtin-126
+  - win-builtin-127
+  - win-builtin-128
+  - win-builtin-129
+  - win-builtin-130
+  - win-builtin-131
+  - win-builtin-132
+  - win-builtin-133
+  - win-builtin-134
+  - win-builtin-135
+  - win-builtin-136
+  - win-builtin-137
+  - win-builtin-138
+  - win-builtin-139
+  - win-builtin-140
+  - win-builtin-141
+  - win-builtin-142
+  - win-builtin-143
+  - win-builtin-144
+  - win-builtin-145
+  - win-builtin-146
+  - win-builtin-147
+  - win-builtin-148
+  - win-builtin-149
+  - win-builtin-150
+  - win-builtin-151
+  - win-builtin-152
+  - win-builtin-153
+  - win-builtin-154
+  - win-builtin-155
+  - win-builtin-156
+  - win-builtin-157
+  - win-builtin-158
+  - win-builtin-159
+  - win-builtin-160
+  - win-builtin-161
+  - win-builtin-162
+  - win-builtin-163
+  - win-builtin-164
+  - win-builtin-165
+  - win-builtin-166
+  - win-builtin-167
+  - win-builtin-168
+  - win-builtin-169
+  - win-builtin-170
+  - win-builtin-171
+  - win-builtin-172
+  - win-builtin-173
+  - win-builtin-174
+  - win-builtin-175
+  - win-builtin-176
+  - win-builtin-177
+  - win-builtin-178
+  - win-builtin-179
+  - win-builtin-180
+  - win-builtin-181
+  - win-builtin-182
+  - win-builtin-183
+  - win-builtin-184
+  - win-builtin-185
+  - win-builtin-186
+  - win-builtin-187
+  - win-builtin-188
+  - win-builtin-189
+  - win-builtin-190
+  - win-builtin-191
+  - win-builtin-192
+  - win-builtin-193
+  - win-builtin-194
+  - win-builtin-195
+  - win-builtin-196
+  - win-builtin-197
+  - win-builtin-198
+  - win-builtin-199
+  - win-builtin-200
+  - win-builtin-201
+  - win-builtin-202
+  - win-builtin-203
+  - win-builtin-204
+  - win-builtin-205
+  - win-builtin-206
+  - win-builtin-207
+  - win-builtin-208
+  - win-builtin-209
+  - win-builtin-210
+  - win-builtin-211
+  - win-builtin-212
+  - win-builtin-213
+  - win-builtin-214
+  - win-builtin-215
+  - win-builtin-216
+  - win-builtin-217
+  - win-builtin-218
+  - win-builtin-219
+  - win-builtin-220
+  - win-builtin-221
+  - win-builtin-222
+  - win-builtin-223
+  - win-builtin-224
+  - win-builtin-225
+  - win-builtin-226
+  - win-builtin-227
+  - win-builtin-228
+  - win-builtin-229
+  - win-builtin-230
+  - win-builtin-231
+  - win-builtin-232
+  - win-builtin-233
 tags:
-  - app/system
-  - windows/service-host
+  - app/windows-source-full-coverage
 ---
 
 # Windows Service Host
 
+<!-- generated: windows-source-full-coverage -->
+
 ## 1. 基本说明
 
-Windows Service Host 是承载共享进程模式 Windows 服务的系统组件，常见进程为 `svchost.exe`。
+本页由 `/tmp/windows系统上常见应用.md` 的规范化覆盖清单生成，用于把来源中的应用、组件或厂商服务纳入终端安全基线画像。
 
-## 2. 相关进程
+## 2. 相关服务
+
+- [[AJRouter]]
+- [[ALG]]
+- [[AppIDSvc]]
+- [[AppMgmt]]
+- [[AppReadiness]]
+- [[AppVClient]]
+- [[AppXSVC]]
+- [[Appinfo]]
+- [[AssignedAccessManagerSvc]]
+- [[AudioEndpointBuilder]]
+- [[Audiosrv]]
+- [[AxInstSV]]
+- [[BDESVC]]
+- [[BFE]]
+- [[BITS]]
+- [[BTAGService]]
+- [[BrokerInfrastructure]]
+- [[BthAvctpSvc]]
+- [[CDPSvc]]
+- [[COMSysApp]]
+- [[CertPropSvc]]
+- [[ClipSVC]]
+- [[CoreMessagingRegistrar]]
+- [[CryptSvc]]
+- [[CscService]]
+- [[DPS]]
+- [[DcomLaunch]]
+- [[DevQueryBroker]]
+- [[DeviceAssociationService]]
+- [[DeviceInstall]]
+- [[Dhcp]]
+- [[DiagTrack]]
+- [[DialogBlockingService]]
+- [[DispBrokerDesktopSvc]]
+- [[DisplayEnhancementService]]
+- [[DmEnrollmentSvc]]
+- [[Dnscache]]
+- [[DoSvc]]
+- [[DsSvc]]
+- [[DsmSvc]]
+- [[DusmSvc]]
+- [[EFS]]
+- [[EapHost]]
+- [[EntAppSvc]]
+- [[EventLog]]
+- [[EventSystem]]
+- [[FDResPub]]
+- [[Fax]]
+- [[FontCache]]
+- [[FrameServer]]
+- [[GraphicsPerfSvc]]
+- [[HvHost]]
+- [[IKEEXT]]
+- [[InstallService]]
+- [[IpxlatCfgSvc]]
+- [[KeyIso]]
+- [[KtmRm]]
+- [[LSM]]
+- [[LanmanServer]]
+- [[LanmanWorkstation]]
+- [[LicenseManager]]
+- [[LxpSvc]]
+- [[MSDTC]]
+- [[MSiSCSI]]
+- [[MapsBroker]]
+- [[MicrosoftEdgeElevationService]]
+- [[MsKeyboardFilter]]
+- [[NaturalAuthentication]]
+- [[NcaSvc]]
+- [[NcbService]]
+- [[NcdAutoSetup]]
+- [[NetSetupSvc]]
+- [[NetTcpPortSharing]]
+- [[Netlogon]]
+- [[Netman]]
+- [[NgcCtnrSvc]]
+- [[NgcSvc]]
+- [[NlaSvc]]
+- [[PNRPAutoReg]]
+- [[PNRPsvc]]
+- [[PcaSvc]]
+- [[PeerDistSvc]]
+- [[PerfHost]]
+- [[PhoneSvc]]
+- [[PlugPlay]]
+- [[PolicyAgent]]
+- [[Power]]
+- [[PrintNotify]]
+- [[ProfSvc]]
+- [[PushToInstall]]
+- [[QWAVE]]
+- [[RasAuto]]
+- [[RasMan]]
+- [[RemoteAccess]]
+- [[RemoteRegistry]]
+- [[RetailDemo]]
+- [[RmSvc]]
+- [[RpcEptMapper]]
+- [[RpcLocator]]
+- [[RpcSs]]
+- [[SCPolicySvc]]
+- [[SCardSvr]]
+- [[SDRSVC]]
+- [[SEMgrSvc]]
+- [[SENS]]
+- [[SNMPTRAP]]
+- [[SSDPSRV]]
+- [[SamSs]]
+- [[ScDeviceEnum]]
+- [[Schedule]]
+- [[SecurityHealthService]]
+- [[Sense]]
+- [[SensorDataService]]
+- [[SensorService]]
+- [[SensrSvc]]
+- [[SessionEnv]]
+- [[SgrmBroker]]
+- [[SharedAccess]]
+- [[SharedRealitySvc]]
+- [[ShellHWDetection]]
+- [[SmsRouter]]
+- [[Spooler]]
+- [[SstpSvc]]
+- [[StateRepository]]
+- [[StorSvc]]
+- [[SysMain]]
+- [[SystemEventsBroker]]
+- [[TabletInputService]]
+- [[TapiSrv]]
+- [[TermService]]
+- [[Themes]]
+- [[TieringEngineService]]
+- [[TimeBrokerSvc]]
+- [[TokenBroker]]
+- [[TrkWks]]
+- [[TroubleshootingSvc]]
+- [[TrustedInstaller]]
+- [[UevAgentService]]
+- [[UmRdpService]]
+- [[UserManager]]
+- [[UsoSvc]]
+- [[VSS]]
+- [[VacSvc]]
+- [[VaultSvc]]
+- [[W32Time]]
+- [[WEPHOSTSVC]]
+- [[WFDSConMgrSvc]]
+- [[WLANSVC]]
+- [[WMPNetworkSvc]]
+- [[WManSvc]]
+- [[WPDBusEnum]]
+- [[WSearch]]
+- [[WaaSMedicSvc]]
+- [[WalletService]]
+- [[WarpJITSvc]]
+- [[WbioSrvc]]
+- [[Wcmsvc]]
+- [[Wcncsvc]]
+- [[WdNisSvc]]
+- [[WdiServiceHost]]
+- [[WdiSystemHost]]
+- [[WebClient]]
+- [[Wecsvc]]
+- [[WerSvc]]
+- [[WiaRpc]]
+- [[WinDefend]]
+- [[WinHttpAutoProxySvc]]
+- [[WinRM]]
+- [[Windows Service Host - mpssvc / MpsSvc 服务模式]]
+- [[Winmgmt]]
+- [[WpcMonSvc]]
+- [[WpnService]]
+- [[WwanSvc]]
+- [[XblAuthManager]]
+- [[XblGameSave]]
+- [[XboxGipSvc]]
+- [[XboxNetApiSvc]]
+- [[autotimesvc]]
+- [[bthserv]]
+- [[camsvc]]
+- [[defragsvc]]
+- [[diagnosticshub.standardcollector.service]]
+- [[diagsvc]]
+- [[dmwappushservice]]
+- [[dot3svc]]
+- [[edgeupdate]]
+- [[edgeupdatem]]
+- [[embeddedmode]]
+- [[fdPHost]]
+- [[fhsvc]]
+- [[gpsvc]]
+- [[hidserv]]
+- [[icssvc]]
+- [[iphlpsvc]]
+- [[lfsvc]]
+- [[lltdsvc]]
+- [[lmhosts]]
+- [[msiserver]]
+- [[netprofm]]
+- [[nsi]]
+- [[p2pimsvc]]
+- [[p2psvc]]
+- [[perceptionsimulation]]
+- [[pla]]
+- [[seclogon]]
+- [[shpamsvc]]
+- [[smphost]]
+- [[spectrum]]
+- [[sppsvc]]
+- [[ssh-agent]]
+- [[stisvc]]
+- [[svsvc]]
+- [[swprv]]
+- [[tzautoupdate]]
+- [[upnphost]]
+- [[vds]]
+- [[vmicguestinterface]]
+- [[vmicheartbeat]]
+- [[vmickvpexchange]]
+- [[vmicrdv]]
+- [[vmicshutdown]]
+- [[vmictimesync]]
+- [[vmicvmsession]]
+- [[vmicvss]]
+- [[wbengine]]
+- [[wercplsupport]]
+- [[wisvc]]
+- [[wlidsvc]]
+- [[wlpasvc]]
+- [[wmiApSrv]]
+- [[workfolderssvc]]
+- [[wscsvc]]
+- [[wuauserv]]
+
+## 3. 相关进程
 
 - [[svchost.exe]]
 
-## 3. 异常关注点
+## 4. 常见启动方式
+
+- [[Windows Service]]
+- [[Scheduled Task]]
+- [[Run Key]]
+
+## 5. 常见父子进程关系
+
+- [[services.exe -> svchost.exe]]
+
+## 6. 常见文件与数据
+
+- [[Windows Service Host 文件与数据画像]]
+
+## 7. 常见注册表信息
+
+- [[Windows Service Host 注册表画像]]
+- [[HKLM_SYSTEM_CurrentControlSet_Services]]
+
+## 8. 常见网络行为
+
+- [[Windows Service Host 网络行为]]
+
+## 9. 异常关注点
 
 ```text
-svchost.exe 不在系统目录
-命令行缺少合理的 -k 或 -s 参数
-承载服务与注册表配置不一致
-非 Microsoft 签名或由异常父进程启动
+服务二进制或主程序位于用户可写目录、临时目录、下载目录或网络共享
+服务启动账户、ImagePath、签名、命令行或网络目的地址与企业授权不一致
+安装、服务创建、首次外联、异常登录或权限提升在时间线上接近
 ```
 
-## 4. 证据与来源
+## 10. 关联安全基线
 
-- 来源类型：系统组件基线
-- 可信度：medium
-- 待验证：结合服务组、命令行和签名样例补强。
+- [[第三方服务异常常驻]]
+- [[应用异常网络外联行为]]
+- [[应用敏感文件与配置访问异常]]
+
+## 11. 证据与来源
+
+- [[Windows Service Host 画像证据记录]]
+- [[Windows常见应用全量覆盖清单]]

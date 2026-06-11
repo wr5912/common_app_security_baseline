@@ -1,51 +1,47 @@
 ---
 type: process
 os: windows
-process_name: elevation_service.exe
+process_name: "elevation_service.exe"
 app: "[[Brave Browser]]"
-vendor: Brave Software
+vendor: "Brave Browser"
 role:
-  - 安装提权辅助
-  - 更新辅助
+  - service_process
 risk_level: medium
-confidence: low
-status: needs_review
+confidence: medium
+status: active
+source_row_ids:
+  - third-party-service-009
+  - third-party-service-010
 tags:
-  - process/browser
-  - windows/service-process
+  - process/windows-source-full-coverage
 ---
 
 # elevation_service.exe
 
+<!-- generated: windows-source-full-coverage -->
+
 ## 1. 进程说明
 
-`elevation_service.exe` 在本库中用于承载 [[Brave Browser]] 的提权或更新辅助进程识别。该文件名也可能被其他 Chromium 系应用使用，不能仅凭进程名判断归属。
+本进程用于承载 [[Brave Browser]] 在 Windows 服务或用户交互场景中的业务逻辑。若来源仅提供服务名而未给出精确 ImagePath，实际二进制路径必须以后续终端观测为准。
 
 ## 2. 所属应用
 
 - [[Brave Browser]]
 
-## 3. 常见路径
-
-```text
-C:\Program Files\BraveSoftware\Brave-Browser\Application\elevation_service.exe
-```
-
-## 4. 常见父进程
+## 3. 常见父进程
 
 - [[services.exe]]
+- [[explorer.exe]]
 
-## 5. 异常行为
+## 4. 异常行为
 
 ```text
-路径不在 Brave 官方安装目录
-签名厂商不一致
-服务名、ImagePath 与资产授权软件不匹配
-异常时间窗口内伴随未知下载或服务创建
+从用户可写路径、临时目录、下载目录或网络共享启动
+签名、厂商、版本或哈希与应用画像不一致
+启动后立即连接未知外部地址、拉起脚本解释器或访问敏感配置
 ```
 
-## 6. 证据与来源
+## 5. 关联安全基线
 
-- 来源类型：[[Windows常见应用服务基线清单]]
-- 可信度：low
-- 待验证：需用真实终端样本确认 Brave 版本、路径和签名。
+- [[第三方服务异常常驻]]
+- [[应用异常网络外联行为]]

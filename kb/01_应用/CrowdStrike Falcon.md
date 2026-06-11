@@ -1,83 +1,72 @@
 ---
 type: app
 os: windows
-app_id: app_crowdstrike_falcon
 app_name_cn: "CrowdStrike Falcon"
 app_name_en: "CrowdStrike Falcon"
-vendor: "CrowdStrike"
-category: "安全 / EDR"
-subcategory: "EDR"
-is_system_builtin: false
-confidence: low
-status: needs_review
+vendor: "CrowdStrike Falcon"
+category: "安全软件 / EDR / 杀毒"
+confidence: medium
+status: active
+source_row_ids:
+  - third-party-edr-006
 tags:
-  - windows/app
-  - app/安全
+  - app/windows-source-full-coverage
 ---
 
 # CrowdStrike Falcon
 
+<!-- generated: windows-source-full-coverage -->
+
 ## 1. 基本说明
 
-CrowdStrike Falcon 属于 `安全 / EDR` 场景应用。当前画像依据 `/tmp/windows系统上常见应用.md` 中的常见服务基线清单建立，用于终端服务、进程和资产角色识别；具体路径、签名和版本差异需要结合企业终端观测确认。
+本页由 `/tmp/windows系统上常见应用.md` 的规范化覆盖清单生成，用于把来源中的应用、组件或厂商服务纳入终端安全基线画像。
 
-## 2. 常见安装路径
-
-```text
-C:\Program Files\CrowdStrike\CSFalconService.exe
-```
-
-## 3. 相关服务
+## 2. 相关服务
 
 - [[CSFalconService]]
 
-## 4. 相关进程
+## 3. 相关进程
 
 - [[CSFalconService.exe]]
 
-## 5. 常见启动方式
+## 4. 常见启动方式
 
 - [[Windows Service]]
-- 用户交互启动或软件自启动，具体取决于安装方式和企业策略。
+- [[Scheduled Task]]
+- [[Run Key]]
 
-## 6. 常见父子进程关系
+## 5. 常见父子进程关系
 
-- 服务常驻组件通常由 [[services.exe]] 启动。
-- 用户交互组件通常由 [[explorer.exe]]、软件更新器或主程序拉起。
+- [[services.exe -> CSFalconService.exe]]
 
-## 7. 常见文件与数据
+## 6. 常见文件与数据
 
-- 安装目录、服务配置、日志、缓存和用户配置文件。
-- 具体路径随版本、安装范围和企业定制包变化。
+- [[CrowdStrike Falcon 文件与数据画像]]
 
-## 8. 常见注册表信息
+## 7. 常见注册表信息
 
+- [[CrowdStrike Falcon 注册表画像]]
 - [[HKLM_SYSTEM_CurrentControlSet_Services]]
-- [[Uninstall Registry]]
 
-## 9. 常见网络行为
+## 8. 常见网络行为
 
-- 更新、授权、管理端通信或业务连接，需按资产角色和目的地址白名单判断。
+- [[CrowdStrike Falcon 网络行为]]
 
-## 10. 正常行为画像
-
-企业 EDR 传感器常驻采集安全遥测。
-
-## 11. 异常关注点
+## 9. 异常关注点
 
 ```text
-应安装 EDR 的资产缺失服务
-服务被停止、卸载或 ImagePath 被篡改
-伪装同名服务但路径/签名异常
+服务二进制或主程序位于用户可写目录、临时目录、下载目录或网络共享
+服务启动账户、ImagePath、签名、命令行或网络目的地址与企业授权不一致
+安装、服务创建、首次外联、异常登录或权限提升在时间线上接近
 ```
 
-## 12. 关联安全基线
+## 10. 关联安全基线
 
-- [[企业安全代理服务常驻]]
+- [[第三方服务异常常驻]]
+- [[应用异常网络外联行为]]
+- [[应用敏感文件与配置访问异常]]
 
-## 13. 证据与来源
+## 11. 证据与来源
 
-- 来源类型：场景清单 / 待企业终端观测补强
-- 来源页面：[[Windows常见应用服务基线清单]]
-- 可信度：low
-- 待验证：服务名、ImagePath、签名厂商、启动账户、网络目的地址和企业授权状态。
+- [[CrowdStrike Falcon 画像证据记录]]
+- [[Windows常见应用全量覆盖清单]]

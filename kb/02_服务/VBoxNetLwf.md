@@ -10,13 +10,14 @@ start_type: unknown
 start_account: LocalSystem
 image_name: "VBoxNetLwf.sys"
 risk_level: medium
-confidence: low
-status: needs_review
+confidence: medium
+status: active
 tags:
   - windows/service
   - service/scenario-baseline
+source_row_ids:
+  - third-party-service-039
 ---
-
 # VBoxNetLwf
 
 ## 1. 服务说明
@@ -83,3 +84,16 @@ HKLM\SYSTEM\CurrentControlSet\Services\VirtualBox NDIS6 Bridged Networking Drive
 - [[服务ImagePath篡改]]
 - [[异常服务创建]]
 - [[Windows常见应用服务基线清单]]
+
+## 全量来源覆盖
+
+<!-- generated: windows-source-full-coverage -->
+
+- 来源行：`third-party-service-039`，第 392 行
+- 所属应用：[[VirtualBox]]
+- 进程：[[VBoxNetLwf.exe]]
+- 父子关系：[[services.exe -> VBoxNetLwf.exe]]
+- 注册表：[[Windows 服务注册表画像]]
+- 文件：[[Windows 服务文件与数据画像]]
+- 网络：[[Windows 服务网络行为]]
+- 证据：[[Windows常见应用全量覆盖清单]]

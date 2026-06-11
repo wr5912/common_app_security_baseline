@@ -1,26 +1,25 @@
 ---
 type: app
 os: windows
-app_id: app_docker_desktop
-app_name_cn: Docker Desktop
-app_name_en: Docker Desktop
-vendor: Docker Inc.
-category: 开发工具
-subcategory: 容器
-is_system_builtin: false
+app_name_cn: "Docker Desktop"
+app_name_en: "Docker Desktop"
+vendor: "Docker Desktop"
+category: "虚拟化 / 容器 / 开发环境"
 confidence: medium
 status: active
+source_row_ids:
+  - third-party-service-026
 tags:
-  - app/developer-tool
-  - app/container
-  - vendor/docker
+  - app/windows-source-full-coverage
 ---
 
 # Docker Desktop
 
+<!-- generated: windows-source-full-coverage -->
+
 ## 1. 基本说明
 
-Docker Desktop 是 Windows 上常见容器开发环境，通常依赖 WSL2、Hyper-V、虚拟网络、后台服务等组件。
+本页由 `/tmp/windows系统上常见应用.md` 的规范化覆盖清单生成，用于把来源中的应用、组件或厂商服务纳入终端安全基线画像。
 
 ## 2. 相关服务
 
@@ -28,21 +27,46 @@ Docker Desktop 是 Windows 上常见容器开发环境，通常依赖 WSL2、Hyp
 
 ## 3. 相关进程
 
-- [[Docker Desktop.exe]]
+- [[com.docker.service.exe]]
 
-## 4. 常见行为画像
+## 4. 常见启动方式
 
-- 启动后台服务。
-- 管理容器和镜像。
-- 访问 WSL / Hyper-V 相关组件。
-- 创建虚拟网络。
-- 访问本地 Docker API / 命名管道。
+- [[Windows Service]]
+- [[Scheduled Task]]
+- [[Run Key]]
 
-## 5. 异常关注点
+## 5. 常见父子进程关系
+
+- [[services.exe -> com.docker.service.exe]]
+
+## 6. 常见文件与数据
+
+- [[Docker Desktop 文件与数据画像]]
+
+## 7. 常见注册表信息
+
+- [[Docker Desktop 注册表画像]]
+- [[HKLM_SYSTEM_CurrentControlSet_Services]]
+
+## 8. 常见网络行为
+
+- [[Docker Desktop 网络行为]]
+
+## 9. 异常关注点
 
 ```text
-生产终端异常安装 Docker Desktop
-容器内启动代理、扫描、挖矿类进程
-Docker API 暴露到不可信网络
-服务路径或签名异常
+服务二进制或主程序位于用户可写目录、临时目录、下载目录或网络共享
+服务启动账户、ImagePath、签名、命令行或网络目的地址与企业授权不一致
+安装、服务创建、首次外联、异常登录或权限提升在时间线上接近
 ```
+
+## 10. 关联安全基线
+
+- [[第三方服务异常常驻]]
+- [[应用异常网络外联行为]]
+- [[应用敏感文件与配置访问异常]]
+
+## 11. 证据与来源
+
+- [[Docker Desktop 画像证据记录]]
+- [[Windows常见应用全量覆盖清单]]
