@@ -39,8 +39,8 @@ parent.exe -> child.exe
 frontmatter 中必须包含：
 
 ```yaml
-parent_process: "[[parent.exe]]"
-child_process: "[[child.exe]]"
+parent_process: "[[services.exe]]"
+child_process: "[[GoogleUpdate.exe]]"
 relation: spawn | service_start | user_launch
 ```
 

@@ -32,7 +32,7 @@ tools/kb_to_sqlite.py
 ```text
 解析 YAML frontmatter
 解析 Markdown 标题章节
-解析 Obsidian [[双链]]
+解析 Obsidian 双链语法
 构建 documents/entities/sections/links/tags/frontmatter_kv 表
 构建 SQLite FTS5 全文索引
 打印详细 debug 日志
@@ -57,7 +57,7 @@ tools/kb_to_neo4j.py
 ```text
 把每个 Markdown 文档转为 KbDocument 节点
 按照 type 追加 App/Service/Process/ProcessRelation 等标签
-把 Obsidian [[双链]] 转为 LINKS_TO 边
+把 Obsidian 双链语法转为 LINKS_TO 边
 未解析链接可保留为 UnresolvedTarget 节点
 默认生成 Cypher 文件
 可选直连 Neo4j 执行导入

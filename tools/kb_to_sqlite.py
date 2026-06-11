@@ -151,6 +151,15 @@ def clear_schema(conn: sqlite3.Connection) -> None:
             LOG.debug("table not found while clearing: %s", table)
 
 
+def drop_schema(conn: sqlite3.Connection) -> None:
+    LOG.debug("drop old SQLite schema")
+    for table in ["documents_fts", "frontmatter_kv", "tags", "links", "sections", "entities", "documents", "metadata"]:
+        try:
+            conn.execute(f"DROP TABLE IF EXISTS {table}")
+        except sqlite3.OperationalError as exc:
+            LOG.debug("table could not be dropped: %s error=%s", table, exc)
+
+
 def _value_text(value: Any) -> str:
     if isinstance(value, (dict, list)):
         return json.dumps(value, ensure_ascii=False)
@@ -295,6 +304,8 @@ def build_sqlite(vault: Path, out: Path, rebuild: bool, export_jsonl_path: Path 
     docs = load_documents(vault)
     conn = open_sqlite(out)
     try:
+        if rebuild:
+            drop_schema(conn)
         create_schema(conn)
         if rebuild:
             clear_schema(conn)

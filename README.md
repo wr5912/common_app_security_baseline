@@ -1,7 +1,7 @@
 ---
 type: readme
 project: 终端应用安全基线画像库
-version: 0.3.0
+version: 0.3.1
 status: draft
 created: 2026-06-11
 maintainer: security-baseline-team
