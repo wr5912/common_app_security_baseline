@@ -2,7 +2,7 @@
 type: readme
 project: 终端应用安全基线画像库
 version: 1.0.0
-status: draft
+status: active
 created: 2026-06-11
 maintainer: security-baseline-team
 tags:
@@ -19,6 +19,8 @@ tags:
 > 它不是一次性的 Excel 表，也不是最终数据库；它是一个可持续演化的 Markdown Wiki 中间层，最终可以被抽取为结构化数据、规则库、知识图谱、威胁分析系统的长期知识资产。
 
 > **平台维度**：每个画像页面用 frontmatter `os: windows | linux | cross` 标注平台。应用 / 服务 / 进程 / 父子关系 / 启动方式 / 文件 / 网络 / 安全基线等目录跨平台共享，靠 `os` 字段区分；平台专属持久化位置分目录承载——Windows 用 `kb/06_注册表画像/`，Linux 用 `kb/12_Linux持久化与配置/`。跨平台方法论页用 `os: cross`（例如 [[服务持久化机制对比]]）。
+
+> **当前发布状态**：`v1.0.0` 已完成 430 条 `/tmp/windows系统上常见应用.md` 来源覆盖、145 个 Windows 常见应用完整画像、210 个进程画像与 211 条父子进程关系画像的发布验收。进程与父子关系页面已统一补齐进程创建、启动参数、运行时行为、安全关注点和证据需求等安全基线章节。
 
 ---
 
@@ -382,6 +384,36 @@ low / medium / high / critical
 
 等这条链稳定后，再扩展注册表、文件、网络、驱动、计划任务。
 
+### 11.1 v1.0.0 发布验收硬门
+
+发布或大批量补齐画像前，至少需要通过以下阻断式审计：
+
+```bash
+.venv/bin/python tools/audit_obsidian_links.py --vault kb --fail
+.venv/bin/python tools/audit_source_coverage.py --vault kb --source /tmp/windows系统上常见应用.md --fail
+.venv/bin/python tools/audit_profile_completeness.py --vault kb --fail
+.venv/bin/python tools/audit_process_behavior_baseline.py --vault kb --fail
+git diff --check
+```
+
+如果本次变更会影响结构化输出，还需要重建 SQLite / Neo4j：
+
+```bash
+.venv/bin/python tools/kb_to_sqlite.py \
+  --vault kb \
+  --out out/windows_app_baseline.db \
+  --rebuild \
+  --export-jsonl out/documents.jsonl \
+  --debug \
+  --log-file kb/logs/kb_to_sqlite.debug.log
+
+.venv/bin/python tools/kb_to_neo4j.py \
+  --vault kb \
+  --out out/windows_app_baseline.cypher \
+  --debug \
+  --log-file kb/logs/kb_to_neo4j.debug.log
+```
+
 ---
 
 ## 12. 结构化抽取方向
@@ -564,6 +596,7 @@ VPN：OpenVPN / WireGuard / GlobalProtect / Cisco AnyConnect / Tailscale / ZeroT
 - 核心模板；
 - 多个样例应用、服务、进程、父子关系、安全基线；
 - 抽取和图谱映射说明；
+- 来源覆盖、画像完整性、进程行为基线和 Obsidian 双链审计工具；
 - 变更日志和待办事项。
 
 你可以直接把整个目录作为 Obsidian Vault 打开。
@@ -674,7 +707,27 @@ fts     SQLite FTS5 全文检索
 like    SQL LIKE 包含匹配
 ```
 
-## 四、调试日志
+## 四、验收审计工具
+
+以下审计工具用于把 Markdown Wiki 的质量约束前移到提交和发布前：
+
+```bash
+# 严格检查 Obsidian 双链是否能按文件名、相对路径或 aliases 解析
+.venv/bin/python tools/audit_obsidian_links.py --vault kb --fail
+
+# 检查 /tmp/windows系统上常见应用.md 中的来源行是否都有画像承接
+.venv/bin/python tools/audit_source_coverage.py --vault kb --source /tmp/windows系统上常见应用.md --fail
+
+# 检查 Windows 常见应用是否具备完整画像链路
+.venv/bin/python tools/audit_profile_completeness.py --vault kb --fail
+
+# 检查 process / process_relation 页面是否具备进程创建和运行时安全基线章节
+.venv/bin/python tools/audit_process_behavior_baseline.py --vault kb --fail
+```
+
+这些工具只负责文档结构和知识链路验收，不替代 EDR、资产台账、软件分发、签名信誉或威胁情报系统。精确 hash、签名证书、首次出现时间、企业授权状态等动态事实，应由专门系统提供并在证据页中引用。
+
+## 五、调试日志
 
 所有工具都支持：
 
@@ -697,7 +750,7 @@ Neo4j Cypher 是否生成成功
 API 每次检索的 SQL、参数和结果数量
 ```
 
-## 五、主数据原则
+## 六、主数据原则
 
 正式维护时仍应遵循：
 
