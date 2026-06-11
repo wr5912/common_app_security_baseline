@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-vpn-012
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Clash Verge / Clash for Windows - Clash* 服务模式"
+
 ---
 # Clash Verge / Clash for Windows - Clash* 服务模式
 

@@ -7,6 +7,9 @@ tags:
   - generated/windows-source-full-coverage
 source_row_ids:
   - third-party-vpn-012
+aliases:
+  - "Clash Verge / Clash for Windows 画像证据记录"
+
 ---
 # Clash Verge / Clash for Windows 画像证据记录
 

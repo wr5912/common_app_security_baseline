@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-006
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Google Chrome - GoogleUpdaterService* 服务模式"
+
 ---
 # Google Chrome - GoogleUpdaterService* 服务模式
 

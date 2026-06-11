@@ -16,6 +16,9 @@ source_row_ids:
   - win-per-user-016
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Windows Per-user Services - P9RdrSvc / P9RdrService 服务模式"
+
 ---
 # Windows Per-user Services - P9RdrSvc / P9RdrService 服务模式
 

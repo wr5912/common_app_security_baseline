@@ -40,6 +40,12 @@ Obsidian Links -> graph edges
 | network_behavior | NetworkBehavior |
 | security_baseline | SecurityBaseline |
 | source_evidence | Evidence |
+| process section: 进程创建基线 | ProcessCreationBaselineSection |
+| process section: 启动参数基线 | ProcessArgumentBaselineSection |
+| process section: 运行时行为基线 | ProcessRuntimeBaselineSection |
+| process section: 证据需求 | EvidenceRequirementSection |
+
+> 进程创建与运行时基线暂不新增独立 Markdown `type`。抽取器通过固定章节标题进入 `sections` 表 / 图谱 section 属性，避免把每个参数模式拆成过细的实体。需要规则化时由下游系统从 section 文本、代码块和链接中二次加工。
 
 ## 4. 最小 JSON 结构
 
@@ -63,4 +69,7 @@ Obsidian Links -> graph edges
 关键页面必须有 confidence
 关系页必须有 parent_process 和 child_process
 安全基线页必须有 normality 和 risk_level
+进程页必须有 进程创建基线 / 启动参数基线 / 运行时行为基线 / 安全关注点 / 证据需求 / 关联安全基线
+父子关系页必须有 创建链路基线 / 高风险参数与命令行关注 / 证据需求 / 关联画像
+签名、hash、信誉、首次出现时间和流行度只作为证据需求，不作为 Markdown 白名单字段
 ```

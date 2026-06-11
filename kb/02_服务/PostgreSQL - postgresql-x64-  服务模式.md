@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-051
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "PostgreSQL - postgresql-x64-* 服务模式"
+
 ---
 # PostgreSQL - postgresql-x64-* 服务模式
 

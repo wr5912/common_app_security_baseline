@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-office-010
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "WPS Office - Kingsoft* / WPS* 服务模式"
+
 ---
 # WPS Office - Kingsoft* / WPS* 服务模式
 

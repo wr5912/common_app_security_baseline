@@ -7,6 +7,9 @@ tags:
   - generated/windows-source-full-coverage
 source_row_ids:
   - third-party-vpn-009
+aliases:
+  - "Ivanti / Pulse Secure 注册表画像"
+
 ---
 # Ivanti / Pulse Secure 注册表画像
 

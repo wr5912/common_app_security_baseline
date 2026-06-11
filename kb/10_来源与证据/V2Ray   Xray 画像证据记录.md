@@ -7,6 +7,9 @@ tags:
   - generated/windows-source-full-coverage
 source_row_ids:
   - third-party-vpn-013
+aliases:
+  - "V2Ray / Xray 画像证据记录"
+
 ---
 # V2Ray / Xray 画像证据记录
 

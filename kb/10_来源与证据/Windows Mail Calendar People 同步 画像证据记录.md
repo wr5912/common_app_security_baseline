@@ -7,6 +7,9 @@ tags:
   - generated/windows-source-full-coverage
 source_row_ids:
   - third-party-office-005
+aliases:
+  - "Windows Mail/Calendar/People 同步 画像证据记录"
+
 ---
 # Windows Mail/Calendar/People 同步 画像证据记录
 

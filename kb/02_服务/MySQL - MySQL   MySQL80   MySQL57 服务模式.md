@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-049
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "MySQL - MySQL / MySQL80 / MySQL57 服务模式"
+
 ---
 # MySQL - MySQL / MySQL80 / MySQL57 服务模式
 

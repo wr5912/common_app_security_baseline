@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-rmm-012
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "ToDesk - ToDesk* 服务模式"
+
 ---
 # ToDesk - ToDesk* 服务模式
 

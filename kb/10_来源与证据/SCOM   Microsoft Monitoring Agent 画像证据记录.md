@@ -7,6 +7,9 @@ tags:
   - generated/windows-source-full-coverage
 source_row_ids:
   - third-party-service-080
+aliases:
+  - "SCOM / Microsoft Monitoring Agent 画像证据记录"
+
 ---
 # SCOM / Microsoft Monitoring Agent 画像证据记录
 

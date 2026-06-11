@@ -24,6 +24,7 @@ Windows Shell 是 Windows 图形桌面、文件资源管理器和用户交互入
 ## 2. 相关进程
 
 - [[explorer.exe]]
+- [[cmd.exe]]
 
 ## 3. 正常行为画像
 

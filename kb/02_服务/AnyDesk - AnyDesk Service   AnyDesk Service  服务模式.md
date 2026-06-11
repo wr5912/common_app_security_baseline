@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-rmm-003
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "AnyDesk - AnyDesk Service / AnyDesk*Service* 服务模式"
+
 ---
 # AnyDesk - AnyDesk Service / AnyDesk*Service* 服务模式
 

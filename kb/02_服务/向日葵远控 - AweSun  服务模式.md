@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-rmm-011
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "向日葵远控 - AweSun* 服务模式"
+
 ---
 # 向日葵远控 - AweSun* 服务模式
 

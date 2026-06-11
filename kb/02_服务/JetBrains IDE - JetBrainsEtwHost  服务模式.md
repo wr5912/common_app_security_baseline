@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-042
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "JetBrains IDE - JetBrainsEtwHost* 服务模式"
+
 ---
 # JetBrains IDE - JetBrainsEtwHost* 服务模式
 

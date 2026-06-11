@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-019
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Apple / iTunes - Apple Mobile Device Service 服务模式"
+
 ---
 # Apple / iTunes - Apple Mobile Device Service 服务模式
 

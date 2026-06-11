@@ -11,6 +11,9 @@ source_row_ids:
   - third-party-service-099
 tags:
   - app/windows-source-full-coverage
+aliases:
+  - "Epson 打印 / 扫描"
+
 ---
 
 # Epson 打印 / 扫描

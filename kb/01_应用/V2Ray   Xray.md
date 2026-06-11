@@ -11,6 +11,9 @@ source_row_ids:
   - third-party-vpn-013
 tags:
   - app/windows-source-full-coverage
+aliases:
+  - "V2Ray / Xray"
+
 ---
 
 # V2Ray / Xray

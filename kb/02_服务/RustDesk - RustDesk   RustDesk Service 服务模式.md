@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-rmm-004
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "RustDesk - RustDesk / RustDesk Service 服务模式"
+
 ---
 # RustDesk - RustDesk / RustDesk Service 服务模式
 

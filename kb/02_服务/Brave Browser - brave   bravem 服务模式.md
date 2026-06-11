@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-010
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Brave Browser - brave / bravem 服务模式"
+
 ---
 # Brave Browser - brave / bravem 服务模式
 

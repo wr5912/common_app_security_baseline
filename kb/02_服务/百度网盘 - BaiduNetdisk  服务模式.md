@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-023
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "百度网盘 - BaiduNetdisk* 服务模式"
+
 ---
 # 百度网盘 - BaiduNetdisk* 服务模式
 

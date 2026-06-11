@@ -11,6 +11,9 @@ source_row_ids:
   - third-party-office-005
 tags:
   - app/windows-source-full-coverage
+aliases:
+  - "Windows Mail/Calendar/People 同步"
+
 ---
 
 # Windows Mail/Calendar/People 同步

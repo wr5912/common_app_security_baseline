@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-office-005
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Windows Mail/Calendar/People 同步 - OneSyncSvc* 服务模式"
+
 ---
 # Windows Mail/Calendar/People 同步 - OneSyncSvc* 服务模式
 

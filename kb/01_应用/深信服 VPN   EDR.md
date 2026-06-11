@@ -11,6 +11,9 @@ source_row_ids:
   - third-party-vpn-011
 tags:
   - app/windows-source-full-coverage
+aliases:
+  - "深信服 VPN / EDR"
+
 ---
 
 # 深信服 VPN / EDR

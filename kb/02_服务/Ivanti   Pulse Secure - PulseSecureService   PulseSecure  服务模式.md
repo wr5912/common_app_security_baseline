@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-vpn-009
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Ivanti / Pulse Secure - PulseSecureService / PulseSecure* 服务模式"
+
 ---
 # Ivanti / Pulse Secure - PulseSecureService / PulseSecure* 服务模式
 

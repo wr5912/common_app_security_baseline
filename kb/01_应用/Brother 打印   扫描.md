@@ -11,6 +11,9 @@ source_row_ids:
   - third-party-service-100
 tags:
   - app/windows-source-full-coverage
+aliases:
+  - "Brother 打印 / 扫描"
+
 ---
 
 # Brother 打印 / 扫描

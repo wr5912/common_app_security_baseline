@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-edr-023
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "OSSEC Agent - ossec / ossecsvc 服务模式"
+
 ---
 # OSSEC Agent - ossec / ossecsvc 服务模式
 

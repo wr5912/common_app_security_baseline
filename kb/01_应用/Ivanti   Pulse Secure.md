@@ -11,6 +11,9 @@ source_row_ids:
   - third-party-vpn-009
 tags:
   - app/windows-source-full-coverage
+aliases:
+  - "Ivanti / Pulse Secure"
+
 ---
 
 # Ivanti / Pulse Secure

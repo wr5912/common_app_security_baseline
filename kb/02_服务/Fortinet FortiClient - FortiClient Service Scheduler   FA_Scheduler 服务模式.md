@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-vpn-010
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Fortinet FortiClient - FortiClient Service Scheduler / FA_Scheduler 服务模式"
+
 ---
 # Fortinet FortiClient - FortiClient Service Scheduler / FA_Scheduler 服务模式
 

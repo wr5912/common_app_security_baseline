@@ -11,6 +11,9 @@ source_row_ids:
   - third-party-vpn-012
 tags:
   - app/windows-source-full-coverage
+aliases:
+  - "Clash Verge / Clash for Windows"
+
 ---
 
 # Clash Verge / Clash for Windows

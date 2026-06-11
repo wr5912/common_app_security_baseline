@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-vpn-011
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "深信服 VPN / EDR - Sangfor* 服务模式"
+
 ---
 # 深信服 VPN / EDR - Sangfor* 服务模式
 

@@ -7,6 +7,9 @@ tags:
   - generated/windows-source-full-coverage
 source_row_ids:
   - third-party-service-101
+aliases:
+  - "Canon 打印 / 扫描 画像证据记录"
+
 ---
 # Canon 打印 / 扫描 画像证据记录
 

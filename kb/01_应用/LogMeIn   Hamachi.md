@@ -11,6 +11,9 @@ source_row_ids:
   - third-party-rmm-008
 tags:
   - app/windows-source-full-coverage
+aliases:
+  - "LogMeIn / Hamachi"
+
 ---
 
 # LogMeIn / Hamachi

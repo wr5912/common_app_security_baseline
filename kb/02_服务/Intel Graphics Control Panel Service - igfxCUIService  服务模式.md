@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-091
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Intel Graphics Control Panel Service - igfxCUIService* 服务模式"
+
 ---
 # Intel Graphics Control Panel Service - igfxCUIService* 服务模式
 

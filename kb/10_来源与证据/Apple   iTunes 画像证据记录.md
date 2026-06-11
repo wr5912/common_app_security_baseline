@@ -7,6 +7,9 @@ tags:
   - generated/windows-source-full-coverage
 source_row_ids:
   - third-party-service-019
+aliases:
+  - "Apple / iTunes 画像证据记录"
+
 ---
 # Apple / iTunes 画像证据记录
 

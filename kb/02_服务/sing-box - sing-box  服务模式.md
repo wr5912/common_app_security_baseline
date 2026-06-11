@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-vpn-014
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "sing-box - sing-box* 服务模式"
+
 ---
 # sing-box - sing-box* 服务模式
 

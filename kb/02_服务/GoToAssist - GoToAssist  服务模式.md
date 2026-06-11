@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-rmm-009
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "GoToAssist - GoToAssist* 服务模式"
+
 ---
 # GoToAssist - GoToAssist* 服务模式
 

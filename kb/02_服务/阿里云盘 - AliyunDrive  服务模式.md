@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-024
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "阿里云盘 - AliyunDrive* 服务模式"
+
 ---
 # 阿里云盘 - AliyunDrive* 服务模式
 

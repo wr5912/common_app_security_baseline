@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-edr-034
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "火绒 - HipsDaemon / Huorong* 服务模式"
+
 ---
 # 火绒 - HipsDaemon / Huorong* 服务模式
 

@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-office-004
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Microsoft Teams - TeamsUpdater* 服务模式"
+
 ---
 # Microsoft Teams - TeamsUpdater* 服务模式
 

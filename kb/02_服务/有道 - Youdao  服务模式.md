@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-office-011
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "有道 - Youdao* 服务模式"
+
 ---
 # 有道 - Youdao* 服务模式
 

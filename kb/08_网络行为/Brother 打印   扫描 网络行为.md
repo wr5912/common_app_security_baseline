@@ -7,6 +7,9 @@ tags:
   - generated/windows-source-full-coverage
 source_row_ids:
   - third-party-service-100
+aliases:
+  - "Brother 打印 / 扫描 网络行为"
+
 ---
 # Brother 打印 / 扫描 网络行为
 

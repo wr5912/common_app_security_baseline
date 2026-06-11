@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-022
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Microsoft OneDrive - OneDrive Updater* 服务模式"
+
 ---
 # Microsoft OneDrive - OneDrive Updater* 服务模式
 

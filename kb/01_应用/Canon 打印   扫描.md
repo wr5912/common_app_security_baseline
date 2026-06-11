@@ -11,6 +11,9 @@ source_row_ids:
   - third-party-service-101
 tags:
   - app/windows-source-full-coverage
+aliases:
+  - "Canon 打印 / 扫描"
+
 ---
 
 # Canon 打印 / 扫描

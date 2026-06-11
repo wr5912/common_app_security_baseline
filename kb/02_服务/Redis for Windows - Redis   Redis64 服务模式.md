@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-053
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Redis for Windows - Redis / Redis64 服务模式"
+
 ---
 # Redis for Windows - Redis / Redis64 服务模式
 

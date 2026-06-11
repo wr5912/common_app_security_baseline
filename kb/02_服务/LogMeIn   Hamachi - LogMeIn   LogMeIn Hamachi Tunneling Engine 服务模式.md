@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-rmm-008
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "LogMeIn / Hamachi - LogMeIn / LogMeIn Hamachi Tunneling Engine 服务模式"
+
 ---
 # LogMeIn / Hamachi - LogMeIn / LogMeIn Hamachi Tunneling Engine 服务模式
 

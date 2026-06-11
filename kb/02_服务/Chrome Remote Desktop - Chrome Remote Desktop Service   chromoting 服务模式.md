@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-rmm-010
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Chrome Remote Desktop - Chrome Remote Desktop Service / chromoting 服务模式"
+
 ---
 # Chrome Remote Desktop - Chrome Remote Desktop Service / chromoting 服务模式
 

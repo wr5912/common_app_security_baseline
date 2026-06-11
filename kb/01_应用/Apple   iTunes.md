@@ -11,6 +11,9 @@ source_row_ids:
   - third-party-service-019
 tags:
   - app/windows-source-full-coverage
+aliases:
+  - "Apple / iTunes"
+
 ---
 
 # Apple / iTunes

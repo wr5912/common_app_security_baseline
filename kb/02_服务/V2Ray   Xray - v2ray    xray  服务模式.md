@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-vpn-013
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "V2Ray / Xray - v2ray* / xray* 服务模式"
+
 ---
 # V2Ray / Xray - v2ray* / xray* 服务模式
 

@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-093
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Dell SupportAssist - Dell SupportAssist / SupportAssistAgent 服务模式"
+
 ---
 # Dell SupportAssist - Dell SupportAssist / SupportAssistAgent 服务模式
 

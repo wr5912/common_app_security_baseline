@@ -11,6 +11,9 @@ source_row_ids:
   - third-party-service-080
 tags:
   - app/windows-source-full-coverage
+aliases:
+  - "SCOM / Microsoft Monitoring Agent"
+
 ---
 
 # SCOM / Microsoft Monitoring Agent

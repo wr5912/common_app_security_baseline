@@ -7,6 +7,9 @@ tags:
   - generated/windows-source-full-coverage
 source_row_ids:
   - third-party-rmm-008
+aliases:
+  - "LogMeIn / Hamachi 注册表画像"
+
 ---
 # LogMeIn / Hamachi 注册表画像
 

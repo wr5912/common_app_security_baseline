@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-edr-033
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "360 安全卫士 / 天擎 - QHActiveDefense / 360* 服务模式"
+
 ---
 # 360 安全卫士 / 天擎 - QHActiveDefense / 360* 服务模式
 

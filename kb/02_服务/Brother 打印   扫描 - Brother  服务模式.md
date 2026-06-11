@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-100
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Brother 打印 / 扫描 - Brother* 服务模式"
+
 ---
 # Brother 打印 / 扫描 - Brother* 服务模式
 

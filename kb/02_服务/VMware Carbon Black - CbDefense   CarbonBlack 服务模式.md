@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-edr-008
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "VMware Carbon Black - CbDefense / CarbonBlack 服务模式"
+
 ---
 # VMware Carbon Black - CbDefense / CarbonBlack 服务模式
 

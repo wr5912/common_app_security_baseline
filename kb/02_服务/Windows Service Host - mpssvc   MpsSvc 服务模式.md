@@ -16,6 +16,9 @@ source_row_ids:
   - win-builtin-198
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Windows Service Host - mpssvc / MpsSvc 服务模式"
+
 ---
 # Windows Service Host - mpssvc / MpsSvc 服务模式
 

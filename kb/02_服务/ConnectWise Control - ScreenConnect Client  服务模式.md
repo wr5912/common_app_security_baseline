@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-rmm-007
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "ConnectWise Control - ScreenConnect Client* 服务模式"
+
 ---
 # ConnectWise Control - ScreenConnect Client* 服务模式
 

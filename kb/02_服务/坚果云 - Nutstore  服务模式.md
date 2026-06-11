@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-025
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "坚果云 - Nutstore* 服务模式"
+
 ---
 # 坚果云 - Nutstore* 服务模式
 

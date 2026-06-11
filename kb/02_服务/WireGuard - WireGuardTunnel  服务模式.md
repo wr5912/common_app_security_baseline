@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-vpn-003
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "WireGuard - WireGuardTunnel* 服务模式"
+
 ---
 # WireGuard - WireGuardTunnel* 服务模式
 

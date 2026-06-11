@@ -7,6 +7,9 @@ tags:
   - generated/windows-source-full-coverage
 source_row_ids:
   - third-party-service-100
+aliases:
+  - "Brother 打印 / 扫描 文件与数据画像"
+
 ---
 # Brother 打印 / 扫描 文件与数据画像
 

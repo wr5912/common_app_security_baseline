@@ -40,6 +40,13 @@ security_baseline
 source_evidence
 ```
 
+进程与父子关系页面还必须满足：
+
+```text
+process: 进程创建基线 / 启动参数基线 / 运行时行为基线 / 安全关注点 / 证据需求 / 关联安全基线
+process_relation: 创建链路基线 / 高风险参数与命令行关注 / 证据需求 / 关联画像
+```
+
 其中，应用页自身不得继续停留在 `status: needs_review` 或 `confidence: low`；如某应用确实没有某一类实体，必须有专门证据页说明“不适用”的判断依据。
 
 ## 3. 机器验收入口
@@ -61,6 +68,10 @@ source_evidence
   --vault kb \
   --scope-git-range HEAD^..HEAD \
   --fail
+
+.venv/bin/python tools/audit_process_behavior_baseline.py \
+  --vault kb \
+  --fail
 ```
 
 ## 4. 当前缺口判断
@@ -80,6 +91,7 @@ source_evidence
 - `/tmp/windows系统上常见应用.md` 只能证明“服务名 / 应用场景在本批次清单中出现”，不能单独证明完整画像。
 - 官方文档、厂商安装包说明、企业终端观测、EDR/Sysmon 事件和人工复核结果应逐步进入 `kb/10_来源与证据/`。
 - 不得无来源填充精确域名、哈希或特定版本路径。
+- 不得把具体签名、hash、证书指纹、信誉、首次出现时间或样本流行度写成 Markdown 白名单；这些动态情报由专门系统提供。
 - 对于版本、安装方式或企业定制导致的差异，保留“模式化画像 + 待观测字段”，但不能把该状态称为最终完成。
 
 ## 6. 关联对象

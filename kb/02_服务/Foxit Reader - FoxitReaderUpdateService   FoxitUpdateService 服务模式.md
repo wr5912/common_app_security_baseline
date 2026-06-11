@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-office-009
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Foxit Reader - FoxitReaderUpdateService / FoxitUpdateService 服务模式"
+
 ---
 # Foxit Reader - FoxitReaderUpdateService / FoxitUpdateService 服务模式
 

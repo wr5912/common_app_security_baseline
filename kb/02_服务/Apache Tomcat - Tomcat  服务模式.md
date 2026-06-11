@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-service-068
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Apache Tomcat - Tomcat* 服务模式"
+
 ---
 # Apache Tomcat - Tomcat* 服务模式
 

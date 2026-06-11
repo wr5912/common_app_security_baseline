@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-edr-035
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "腾讯电脑管家 - TWatch* / TAV* 服务模式"
+
 ---
 # 腾讯电脑管家 - TWatch* / TAV* 服务模式
 

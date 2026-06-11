@@ -16,6 +16,9 @@ source_row_ids:
   - third-party-edr-009
 tags:
   - service/windows-source-full-coverage
+aliases:
+  - "Palo Alto Cortex XDR - cyserver / CyveraService 服务模式"
+
 ---
 # Palo Alto Cortex XDR - cyserver / CyveraService 服务模式
 

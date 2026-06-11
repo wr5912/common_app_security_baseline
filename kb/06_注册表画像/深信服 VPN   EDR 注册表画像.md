@@ -7,6 +7,9 @@ tags:
   - generated/windows-source-full-coverage
 source_row_ids:
   - third-party-vpn-011
+aliases:
+  - "深信服 VPN / EDR 注册表画像"
+
 ---
 # 深信服 VPN / EDR 注册表画像
 
