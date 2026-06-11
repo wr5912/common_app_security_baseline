@@ -1,0 +1,13 @@
+# Windows应用安全基线画像库 tools dependencies
+# 基础解析
+PyYAML>=6.0.1
+
+# API 服务
+fastapi>=0.110
+uvicorn[standard]>=0.27
+
+# 模糊匹配，可选但推荐；未安装时会降级到 difflib
+rapidfuzz>=3.6
+
+# Neo4j 直连导入；如果只生成 Cypher 文件，可以不安装
+neo4j>=5.20
