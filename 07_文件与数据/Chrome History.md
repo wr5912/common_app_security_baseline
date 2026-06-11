@@ -1,5 +1,6 @@
 ---
 type: file_artifact
+os: windows
 artifact_name: Chrome History
 app: "[[Google Chrome]]"
 artifact_type: sqlite_db

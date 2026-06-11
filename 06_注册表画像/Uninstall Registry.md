@@ -1,5 +1,6 @@
 ---
 type: registry_pattern
+os: windows
 hive: HKLM/HKCU
 key_pattern: Software\Microsoft\Windows\CurrentVersion\Uninstall\*
 purpose:

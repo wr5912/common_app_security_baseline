@@ -1,5 +1,6 @@
 ---
 type: service
+os: windows
 service_name: WinDefend
 display_name: Microsoft Defender Antivirus Service
 app: "[[Microsoft Defender]]"

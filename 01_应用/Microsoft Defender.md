@@ -1,5 +1,6 @@
 ---
 type: app
+os: windows
 app_id: app_microsoft_defender
 app_name_cn: Microsoft Defender
 app_name_en: Microsoft Defender

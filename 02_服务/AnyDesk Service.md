@@ -1,5 +1,6 @@
 ---
 type: service
+os: windows
 service_name: AnyDesk Service
 display_name: AnyDesk Service
 app: "[[AnyDesk]]"

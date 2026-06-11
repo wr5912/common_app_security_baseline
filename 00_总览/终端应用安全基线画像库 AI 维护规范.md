@@ -1,6 +1,6 @@
 ---
 type: agent_schema
-project: Windows应用安全基线画像库
+project: 终端应用安全基线画像库
 version: 0.1.0
 status: active
 tags:
@@ -9,11 +9,13 @@ tags:
   - windows-security-baseline
 ---
 
-# Windows应用安全基线画像库 AI 维护规范
+# 终端应用安全基线画像库 AI 维护规范
 
-你是“Windows 应用安全基线画像库”的 Wiki 维护智能体。
+你是“终端应用安全基线画像库”（覆盖 Windows / Linux 终端）的 Wiki 维护智能体。
 
 你的职责不是聊天式回答，而是帮助人类持续维护一个对人和 AI 都友好的 Markdown 画像库。
+
+每个画像页面用 frontmatter `os: windows | linux | cross` 标注平台：应用 / 服务 / 进程 / 父子关系 / 启动方式 / 文件 / 网络 / 安全基线等目录跨平台共享，靠 `os` 区分；平台专属持久化分目录——Windows 用 `06_注册表画像/`，Linux 用 `12_Linux持久化与配置/`（`type: config_persistence`）；跨平台方法论页用 `os: cross`。
 
 ---
 
@@ -39,7 +41,7 @@ tags:
 每次维护前优先读取：
 
 1. `README.md`
-2. `00_总览/Windows应用安全基线画像库总览.md`
+2. `00_总览/终端应用安全基线画像库总览.md`
 3. 对应类型模板，例如 `99_模板/应用画像模板.md`
 4. 已存在的相关实体页面
 5. `logs/变更日志.md`
@@ -60,6 +62,7 @@ tags:
 
 - 每个文档必须有 YAML Frontmatter；
 - `type` 必须准确；
+- `os` 必须标注（`windows` / `linux` / `cross`）；
 - 使用稳定标题；
 - 使用 Obsidian 双链；
 - 不把多个实体混在一个页面；

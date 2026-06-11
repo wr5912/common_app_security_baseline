@@ -78,7 +78,7 @@ def fuzzy_score(query: str, row: sqlite3.Row) -> int:
 def create_app(db_path: Path, debug: bool = False) -> FastAPI:
     conn = open_db(db_path)
     app = FastAPI(
-        title="Windows应用安全基线画像库 API",
+        title="终端应用安全基线画像库 API",
         description="检索 Obsidian/Markdown 画像库转出的 SQLite 数据，支持 exact/fuzzy/fts 检索。",
         version="1.0.0",
     )
@@ -104,9 +104,11 @@ def create_app(db_path: Path, debug: bool = False) -> FastAPI:
     def stats() -> dict[str, Any]:
         LOG.debug("stats requested")
         rows = conn.execute("SELECT type, COUNT(*) AS count FROM documents GROUP BY type ORDER BY count DESC, type").fetchall()
+        os_rows = conn.execute("SELECT os, COUNT(*) AS count FROM documents GROUP BY os ORDER BY count DESC, os").fetchall()
         link_stats = conn.execute("SELECT target_resolved, COUNT(*) AS count FROM links GROUP BY target_resolved").fetchall()
         return {
             "by_type": [dict(r) for r in rows],
+            "by_os": [dict(r) for r in os_rows],
             "links": [{"resolved": bool(r["target_resolved"]), "count": r["count"]} for r in link_stats],
         }
 
@@ -131,15 +133,19 @@ def create_app(db_path: Path, debug: bool = False) -> FastAPI:
         q: str = Query(..., description="检索关键词"),
         mode: str = Query("fuzzy", pattern="^(exact|fuzzy|fts|like)$"),
         type: str | None = Query(None, description="按文档类型过滤，如 app/service/process/process_relation"),
+        os: str | None = Query(None, description="按平台过滤，如 windows/linux/cross"),
         limit: int = Query(20, ge=1, le=200),
         offset: int = Query(0, ge=0),
     ) -> dict[str, Any]:
-        LOG.debug("search request q=%r mode=%s type=%s limit=%d offset=%d", q, mode, type, limit, offset)
+        LOG.debug("search request q=%r mode=%s type=%s os=%s limit=%d offset=%d", q, mode, type, os, limit, offset)
         params: list[Any] = []
-        type_clause = ""
+        filter_clause = ""
         if type:
-            type_clause = " AND d.type = ?"
+            filter_clause += " AND d.type = ?"
             params.append(type)
+        if os:
+            filter_clause += " AND d.os = ?"
+            params.append(os)
 
         try:
             if mode == "exact":
@@ -147,7 +153,7 @@ def create_app(db_path: Path, debug: bool = False) -> FastAPI:
                     "SELECT d.*, 100 AS score FROM documents d "
                     "LEFT JOIN entities e ON e.doc_id=d.id "
                     "WHERE (d.title = ? OR d.name = ? OR d.path = ? OR e.service_name = ? OR e.process_name = ? OR e.vendor = ? OR d.type = ?)"
-                    + type_clause +
+                    + filter_clause +
                     " ORDER BY d.type, d.title LIMIT ? OFFSET ?"
                 )
                 query_params = [q, q, q, q, q, q, q, *params, limit, offset]
@@ -159,7 +165,7 @@ def create_app(db_path: Path, debug: bool = False) -> FastAPI:
                     sql = (
                         "SELECT d.*, bm25(documents_fts) AS score "
                         "FROM documents_fts JOIN documents d ON d.id = documents_fts.doc_id "
-                        "WHERE documents_fts MATCH ?" + type_clause +
+                        "WHERE documents_fts MATCH ?" + filter_clause +
                         " ORDER BY score LIMIT ? OFFSET ?"
                     )
                     query_params = [q, *params, limit, offset]
@@ -168,13 +174,13 @@ def create_app(db_path: Path, debug: bool = False) -> FastAPI:
                     results = [row_to_dict(r) for r in rows]
                 except sqlite3.OperationalError as exc:
                     LOG.warning("FTS unavailable or query invalid (%s), fallback to LIKE", exc)
-                    return search(q=q, mode="like", type=type, limit=limit, offset=offset)
+                    return search(q=q, mode="like", type=type, os=os, limit=limit, offset=offset)
             elif mode == "like":
                 like = f"%{q}%"
                 sql = (
                     "SELECT d.*, 50 AS score FROM documents d WHERE "
                     "(d.title LIKE ? OR d.name LIKE ? OR d.path LIKE ? OR d.body_text LIKE ? OR d.frontmatter_json LIKE ?)"
-                    + type_clause +
+                    + filter_clause +
                     " ORDER BY d.type, d.title LIMIT ? OFFSET ?"
                 )
                 query_params = [like, like, like, like, like, *params, limit, offset]
@@ -182,7 +188,7 @@ def create_app(db_path: Path, debug: bool = False) -> FastAPI:
                 rows = conn.execute(sql, query_params).fetchall()
                 results = [row_to_dict(r) for r in rows]
             else:  # fuzzy
-                sql = "SELECT d.* FROM documents d WHERE 1=1" + type_clause
+                sql = "SELECT d.* FROM documents d WHERE 1=1" + filter_clause
                 LOG.debug("fuzzy candidate sql=%s params=%s", sql, params)
                 rows = conn.execute(sql, params).fetchall()
                 ranked = []

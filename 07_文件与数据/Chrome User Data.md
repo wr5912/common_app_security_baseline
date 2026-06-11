@@ -1,5 +1,6 @@
 ---
 type: file_artifact
+os: windows
 artifact_name: Chrome User Data
 app: "[[Google Chrome]]"
 artifact_type: profile_directory

@@ -1,5 +1,6 @@
 ---
 type: service
+os: windows
 service_name: edgeupdate
 display_name: Microsoft Edge Update Service
 app: "[[Microsoft Edge]]"

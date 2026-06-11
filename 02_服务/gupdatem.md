@@ -1,5 +1,6 @@
 ---
 type: service
+os: windows
 service_name: gupdatem
 display_name: Google Update Service Machine
 app: "[[Google Chrome]]"

@@ -1,10 +1,10 @@
 ---
-description: 维护 Windows应用安全基线画像库 Markdown Wiki。用于新增/更新应用、服务、进程、父子关系、注册表、文件、网络或安全基线画像，补证据、双链、索引和变更日志，并保证结构化抽取可用。
+description: 维护 终端应用安全基线画像库 Markdown Wiki。用于新增/更新应用、服务、进程、父子关系、注册表、文件、网络或安全基线画像，补证据、双链、索引和变更日志，并保证结构化抽取可用。
 ---
 
 # Wiki 维护技能
 
-当任务涉及在 `Windows应用安全基线画像库` 中新增或更新画像（应用 / 服务 / 进程 / 父子关系 / 注册表 / 文件 / 网络 / 安全基线），或补充来源证据、安全基线、索引与变更日志时，使用本技能。
+当任务涉及在 `终端应用安全基线画像库` 中新增或更新画像（应用 / 服务 / 进程 / 父子关系 / 注册表 / 文件 / 网络 / 安全基线），或补充来源证据、安全基线、索引与变更日志时，使用本技能。
 
 通用工程行为见 `.claude/skills/project-skill/SKILL.md`，项目事实见 `CLAUDE.project.md`。本技能只承载知识库维护的高频流程。
 
@@ -13,8 +13,8 @@ description: 维护 Windows应用安全基线画像库 Markdown Wiki。用于新
 每次维护前按顺序读取：
 
 1. `README.md`
-2. `00_总览/Windows应用安全基线画像库 AI 维护规范.md`
-3. `00_总览/Windows应用安全基线画像库总览.md` 与 `00_总览/维护工作流.md`
+2. `00_总览/终端应用安全基线画像库 AI 维护规范.md`
+3. `00_总览/终端应用安全基线画像库总览.md` 与 `00_总览/维护工作流.md`
 4. 对应类型模板，例如 `99_模板/应用画像模板.md`
 5. 已存在的相关实体页面（避免重复建页或破坏已有双链）
 6. `logs/变更日志.md`
@@ -27,25 +27,29 @@ description: 维护 Windows应用安全基线画像库 Markdown Wiki。用于新
 
 ## 3. 选择模板与目录
 
-| type | 目录 | 模板 |
-|---|---|---|
-| `app` | `01_应用/` | `99_模板/应用画像模板.md` |
-| `service` | `02_服务/` | `99_模板/服务画像模板.md` |
-| `process` | `03_进程/` | `99_模板/进程画像模板.md` |
-| `process_relation` | `04_父子进程关系/` | `99_模板/父子进程关系模板.md` |
-| `startup_method` | `05_启动方式/` | 对应模板 |
-| `registry_pattern` | `06_注册表画像/` | 对应模板 |
-| `file_artifact` | `07_文件与数据/` | 对应模板 |
-| `network_behavior` | `08_网络行为/` | 对应模板 |
-| `security_baseline` | `09_安全基线/` | 对应模板 |
-| `source_evidence` | `10_来源与证据/` | 对应模板 |
-| `extract_spec` | `11_抽取与图谱/` | 对应模板 |
+| type | os 典型值 | 目录 | 模板 |
+|---|---|---|---|
+| `app` | windows / linux | `01_应用/` | `99_模板/应用画像模板.md` |
+| `service` | windows / linux | `02_服务/` | `99_模板/服务画像模板.md` |
+| `process` | windows / linux | `03_进程/` | `99_模板/进程画像模板.md` |
+| `process_relation` | windows / linux | `04_父子进程关系/` | `99_模板/父子进程关系模板.md` |
+| `startup_method` | windows / linux | `05_启动方式/` | `99_模板/启动方式模板.md` |
+| `registry_pattern` | windows | `06_注册表画像/` | `99_模板/注册表行为模板.md` |
+| `file_artifact` | windows / linux | `07_文件与数据/` | `99_模板/文件数据行为模板.md` |
+| `network_behavior` | windows / linux | `08_网络行为/` | `99_模板/网络行为模板.md` |
+| `security_baseline` | windows / linux / cross | `09_安全基线/` | `99_模板/安全基线模板.md` |
+| `source_evidence` | windows / linux | `10_来源与证据/` | `99_模板/证据记录模板.md` |
+| `config_persistence` | linux | `12_Linux持久化与配置/` | `99_模板/Linux持久化与配置模板.md` |
+| `extract_spec` | cross | `11_抽取与图谱/` | （规范文档，无画像模板） |
 
 文件命名遵循 README 第 9 节：应用 `Google Chrome.md`、服务 `gupdate.md`、进程 `chrome.exe.md`、关系 `winword.exe -> powershell.exe.md`。
 
-## 4. 实体拆分
+## 4. 实体拆分与平台维度
 
 - 一个页面只表达一个主要实体或关系，`type` 必须准确。
+- 每个画像页面必须标注 `os: windows | linux | cross`；缺省时抽取会按 `windows/*`/`linux/*` 标签和目录回退，但应显式写明。
+- 跨平台共享目录（应用 / 服务 / 进程 / 父子关系 / 启动方式 / 文件 / 网络 / 安全基线 / 来源证据）按 `os` 字段区分 Windows 与 Linux 实体；平台专属持久化分目录：Windows 用 `06_注册表画像/`（`registry_pattern`），Linux 用 `12_Linux持久化与配置/`（`config_persistence`），二者互为对应。
+- 跨平台对照 / 方法论页用 `os: cross`，例如 [[服务持久化机制对比]]。
 - 不把多个服务 / 进程合并进一个页面。
 - 父子进程关系等“关系类”安全判断必须单独建 `process_relation` 文档，不能只写在进程页内。
 

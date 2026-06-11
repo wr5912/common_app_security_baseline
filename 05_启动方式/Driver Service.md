@@ -1,5 +1,6 @@
 ---
 type: startup_method
+os: windows
 name: Driver Service
 risk_level: critical
 confidence: medium

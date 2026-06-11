@@ -1,5 +1,6 @@
 ---
 type: startup_method
+os: windows
 name: Windows Service
 risk_level: high
 confidence: high

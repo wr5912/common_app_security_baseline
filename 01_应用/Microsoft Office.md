@@ -1,5 +1,6 @@
 ---
 type: app
+os: windows
 app_id: app_microsoft_office
 app_name_cn: Microsoft Office
 app_name_en: Microsoft Office

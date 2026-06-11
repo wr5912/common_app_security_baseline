@@ -1,5 +1,6 @@
 ---
 type: process
+os: windows
 process_name: svchost.exe
 app: "[[Windows Service Host]]"
 vendor: Microsoft Corporation

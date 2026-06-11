@@ -1,5 +1,6 @@
 ---
 type: app
+os: windows
 app_id: app_docker_desktop
 app_name_cn: Docker Desktop
 app_name_en: Docker Desktop

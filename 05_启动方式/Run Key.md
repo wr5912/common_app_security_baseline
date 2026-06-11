@@ -1,5 +1,6 @@
 ---
 type: startup_method
+os: windows
 name: Run Key
 risk_level: high
 confidence: medium

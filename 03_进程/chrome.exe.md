@@ -1,5 +1,6 @@
 ---
 type: process
+os: windows
 process_name: chrome.exe
 app: "[[Google Chrome]]"
 vendor: Google LLC

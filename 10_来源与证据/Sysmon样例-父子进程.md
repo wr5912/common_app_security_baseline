@@ -1,5 +1,6 @@
 ---
 type: source_evidence
+os: windows
 evidence_id: evidence_sysmon_process_spawn_sample
 source_type: sysmon_sample
 confidence: low

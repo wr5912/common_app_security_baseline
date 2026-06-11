@@ -1,5 +1,6 @@
 ---
 type: security_baseline
+os: windows
 baseline_id: base_service_imagepath_tamper
 object_type: registry/service
 normality: suspicious

@@ -1,5 +1,6 @@
 ---
 type: service
+os: windows
 service_name: ClickToRunSvc
 display_name: Microsoft Office Click-to-Run Service
 app: "[[Microsoft Office]]"

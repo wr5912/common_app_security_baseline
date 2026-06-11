@@ -1,5 +1,6 @@
 ---
 type: process
+os: windows
 process_name: MsMpEng.exe
 app: "[[Microsoft Defender]]"
 vendor: Microsoft Corporation

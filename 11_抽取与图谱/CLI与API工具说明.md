@@ -11,7 +11,7 @@ tags:
 
 ## 1. 目标
 
-本工具集用于把“Windows应用安全基线画像库”的 Markdown Wiki 中间产物转成三类可消费形态：
+本工具集用于把“终端应用安全基线画像库”的 Markdown Wiki 中间产物转成三类可消费形态：
 
 ```text
 Markdown Wiki -> SQLite 结构化数据

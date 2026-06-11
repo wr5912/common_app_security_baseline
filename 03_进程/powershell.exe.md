@@ -1,5 +1,6 @@
 ---
 type: process
+os: windows
 process_name: powershell.exe
 app: "[[Windows PowerShell]]"
 vendor: Microsoft Corporation

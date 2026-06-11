@@ -55,6 +55,7 @@ def create_schema(conn: sqlite3.Connection) -> None:
             path TEXT UNIQUE NOT NULL,
             title TEXT NOT NULL,
             type TEXT NOT NULL,
+            os TEXT NOT NULL,
             name TEXT,
             frontmatter_json TEXT NOT NULL,
             body TEXT NOT NULL,
@@ -121,6 +122,7 @@ def create_schema(conn: sqlite3.Connection) -> None:
         );
 
         CREATE INDEX IF NOT EXISTS idx_documents_type ON documents(type);
+        CREATE INDEX IF NOT EXISTS idx_documents_os ON documents(os);
         CREATE INDEX IF NOT EXISTS idx_documents_title ON documents(title);
         CREATE INDEX IF NOT EXISTS idx_entities_type_name ON entities(entity_type, name);
         CREATE INDEX IF NOT EXISTS idx_entities_service ON entities(service_name);
@@ -164,14 +166,15 @@ def insert_documents(conn: sqlite3.Connection, docs: list[Document]) -> None:
         LOG.debug("insert document path=%s type=%s title=%s", doc.path, doc.type, doc.title)
         conn.execute(
             """
-            INSERT INTO documents(id,path,title,type,name,frontmatter_json,body,body_text,raw_markdown,sha256,mtime,word_count,tags_json,aliases_json)
-            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+            INSERT INTO documents(id,path,title,type,os,name,frontmatter_json,body,body_text,raw_markdown,sha256,mtime,word_count,tags_json,aliases_json)
+            VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
             """,
             (
                 doc.id,
                 doc.path,
                 doc.title,
                 doc.type,
+                doc.os,
                 doc.name,
                 json_dumps(doc.frontmatter),
                 doc.body,
@@ -261,7 +264,7 @@ def insert_metadata(conn: sqlite3.Connection, docs: list[Document], vault: Path)
         "vault_path": str(vault.resolve()),
         "document_count": str(len(docs)),
         "tool": "kb_to_sqlite.py",
-        "schema_version": "1.0.0",
+        "schema_version": "1.1.0",
     }
     for k, v in rows.items():
         conn.execute("INSERT OR REPLACE INTO metadata(key,value) VALUES(?,?)", (k, v))
@@ -277,6 +280,7 @@ def export_jsonl(docs: list[Document], out: Path) -> None:
                 "path": doc.path,
                 "title": doc.title,
                 "type": doc.type,
+                "os": doc.os,
                 "name": doc.name,
                 "frontmatter": doc.frontmatter,
                 "tags": doc.tags,

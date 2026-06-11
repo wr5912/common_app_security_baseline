@@ -1,5 +1,6 @@
 ---
 type: app
+os: windows
 app_id: app_google_chrome
 app_name_cn: 谷歌浏览器
 app_name_en: Google Chrome

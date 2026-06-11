@@ -224,6 +224,7 @@ class Document:
     abs_path: Path
     title: str
     type: str
+    os: str
     name: str
     frontmatter: dict[str, Any]
     body: str
@@ -259,7 +260,28 @@ def infer_type(path: Path, fm: dict[str, Any]) -> str:
         return "network_behavior"
     if "09_安全基线" in parts:
         return "security_baseline"
+    if any(str(p).startswith("12_Linux") for p in parts):
+        return "config_persistence"
     return "document"
+
+
+def infer_os(path: Path, fm: dict[str, Any], tags: list[str]) -> str:
+    """Resolve a page's platform. Explicit frontmatter `os` wins; otherwise
+    fall back to platform-specific directories and `windows/*` / `linux/*` tags;
+    default to `cross` for shared / methodology pages."""
+    explicit = first_non_empty(fm.get("os"))
+    if explicit:
+        return str(explicit).strip().lower()
+    parts = set(path.parts)
+    if "06_注册表画像" in parts:
+        return "windows"
+    if any(str(p).startswith("12_Linux") for p in parts):
+        return "linux"
+    for tag in tags:
+        head = str(tag).split("/", 1)[0].strip().lower()
+        if head in {"windows", "linux", "macos"}:
+            return head
+    return "cross"
 
 
 def infer_name(title: str, fm: dict[str, Any], doc_type: str) -> str:
@@ -294,6 +316,7 @@ def load_documents(vault: Path) -> list[Document]:
         doc_type = infer_type(Path(rel), fm)
         name = infer_name(title, fm, doc_type)
         tags = as_list(fm.get("tags"))
+        doc_os = infer_os(Path(rel), fm, tags)
         aliases = as_list(fm.get("aliases"))
         links = extract_links(raw)
         doc = Document(
@@ -302,6 +325,7 @@ def load_documents(vault: Path) -> list[Document]:
             abs_path=path,
             title=title,
             type=doc_type,
+            os=doc_os,
             name=name,
             frontmatter=fm,
             body=body,

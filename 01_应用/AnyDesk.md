@@ -1,5 +1,6 @@
 ---
 type: app
+os: windows
 app_id: app_anydesk
 app_name_cn: AnyDesk
 app_name_en: AnyDesk

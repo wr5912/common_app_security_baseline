@@ -1,5 +1,6 @@
 ---
 type: process
+os: windows
 process_name: winword.exe
 app: "[[Microsoft Office]]"
 vendor: Microsoft Corporation

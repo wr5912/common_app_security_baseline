@@ -1,5 +1,6 @@
 ---
 type: process
+os: windows
 process_name: Docker Desktop.exe
 app: "[[Docker Desktop]]"
 vendor: Docker Inc.

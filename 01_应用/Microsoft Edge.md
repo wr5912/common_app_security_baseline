@@ -1,5 +1,6 @@
 ---
 type: app
+os: windows
 app_id: app_microsoft_edge
 app_name_cn: Microsoft Edge
 app_name_en: Microsoft Edge

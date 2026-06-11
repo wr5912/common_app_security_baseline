@@ -1,5 +1,6 @@
 ---
 type: service
+os: windows
 service_name: com.docker.service
 display_name: Docker Desktop Service
 app: "[[Docker Desktop]]"

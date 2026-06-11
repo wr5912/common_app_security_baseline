@@ -1,5 +1,6 @@
 ---
 type: process_relation
+os: windows
 parent_process: "[[services.exe]]"
 child_process: "[[AnyDesk.exe]]"
 relation: service_start

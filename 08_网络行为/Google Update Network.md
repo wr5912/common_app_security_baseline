@@ -1,5 +1,6 @@
 ---
 type: network_behavior
+os: windows
 app: "[[Google Chrome]]"
 process: "[[GoogleUpdate.exe]]"
 protocol:

@@ -1,5 +1,6 @@
 ---
 type: process
+os: windows
 process_name: AnyDesk.exe
 app: "[[AnyDesk]]"
 vendor: AnyDesk Software GmbH

@@ -1,5 +1,6 @@
 ---
 type: service
+os: windows
 service_name: Sense
 display_name: Microsoft Defender for Endpoint Service
 app: "[[Microsoft Defender]]"

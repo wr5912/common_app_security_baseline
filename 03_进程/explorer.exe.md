@@ -1,5 +1,6 @@
 ---
 type: process
+os: windows
 process_name: explorer.exe
 app: "[[Windows Shell]]"
 vendor: Microsoft Corporation

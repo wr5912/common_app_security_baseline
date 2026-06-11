@@ -1,5 +1,6 @@
 ---
 type: security_baseline
+os: windows
 baseline_id: base_defender_service_stopped
 object_type: service
 normality: suspicious

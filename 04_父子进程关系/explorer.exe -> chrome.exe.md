@@ -1,5 +1,6 @@
 ---
 type: process_relation
+os: windows
 parent_process: "[[explorer.exe]]"
 child_process: "[[chrome.exe]]"
 relation: user_launch

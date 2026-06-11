@@ -1,5 +1,6 @@
 ---
 type: process
+os: windows
 process_name: services.exe
 app: "[[Windows Service Control Manager]]"
 vendor: Microsoft Corporation

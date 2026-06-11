@@ -1,5 +1,6 @@
 ---
 type: registry_pattern
+os: windows
 hive: HKLM
 key_pattern: HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\*
 purpose:

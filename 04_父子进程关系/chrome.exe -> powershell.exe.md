@@ -1,5 +1,6 @@
 ---
 type: process_relation
+os: windows
 parent_process: "[[chrome.exe]]"
 child_process: "[[powershell.exe]]"
 relation: spawn
