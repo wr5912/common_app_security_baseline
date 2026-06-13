@@ -44,8 +44,11 @@ Obsidian Links -> graph edges
 | process section: 启动参数基线 | ProcessArgumentBaselineSection |
 | process section: 运行时行为基线 | ProcessRuntimeBaselineSection |
 | process section: 证据需求 | EvidenceRequirementSection |
+| section: 结构化生命周期基线 / 结构化生命周期规则 | KbLifecycleRule |
 
 > 进程创建与运行时基线暂不新增独立 Markdown `type`。抽取器通过固定章节标题进入 `sections` 表 / 图谱 section 属性，避免把每个参数模式拆成过细的实体。需要规则化时由下游系统从 section 文本、代码块和链接中二次加工。
+>
+> 面向 STIX 行为事实图的条件判断规则使用固定 YAML 代码块表达，并由 `tools/kb_lifecycle_rules_to_cypher.py` 转换为 `KbLifecycleRule` 派生节点。Markdown 页面仍是主数据源，规则节点和 Cypher 文件都是派生产物。
 
 ## 4. 最小 JSON 结构
 
@@ -71,5 +74,6 @@ Obsidian Links -> graph edges
 安全基线页必须有 normality 和 risk_level
 进程页必须有 进程创建基线 / 启动参数基线 / 运行时行为基线 / 安全关注点 / 证据需求 / 关联安全基线
 父子关系页必须有 创建链路基线 / 高风险参数与命令行关注 / 证据需求 / 关联画像
+需要进行自动化生命周期判断的页面应补充 结构化生命周期基线 或 结构化生命周期规则 YAML 块
 签名、hash、信誉、首次出现时间和流行度只作为证据需求，不作为 Markdown 白名单字段
 ```

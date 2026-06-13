@@ -1,10 +1,12 @@
 # 终端应用安全基线画像库 CLI / API 工具集
 
-本目录提供 3 类工具：
+本目录提供 5 类工具：
 
 1. `kb_to_sqlite.py`：将 Obsidian/Markdown 画像库转为结构化 SQLite 数据。
 2. `kb_to_neo4j.py`：将 Obsidian/Markdown 双链关系转为 Neo4j 图数据，默认生成 Cypher 文件，可选直连执行。
-3. `api_service.py`：基于 SQLite 数据库提供 API 检索服务，支持全匹配、模糊匹配、FTS 全文检索、LIKE 检索。
+3. `kb_lifecycle_rules_to_cypher.py`：将生命周期基线知识转为 JSONL / Cypher 条件规则库，用于基于 STIX 行为事实图的进程全生命周期分析。
+4. `smoke_lifecycle_e2e.py`：用生成的生命周期规则库跑 STIX 风格进程生命周期端到端 smoke。
+5. `api_service.py`：基于 SQLite 数据库提供 API 检索服务，支持全匹配、模糊匹配、FTS 全文检索、LIKE 检索。
 
 所有工具均支持：
 
@@ -152,7 +154,89 @@ target_text
 
 ---
 
-## 4. API 检索服务
+## 4. 生命周期条件规则库
+
+生成规则 JSONL 和 Cypher：
+
+```bash
+.venv/bin/python tools/kb_lifecycle_rules_to_cypher.py \
+  --vault kb \
+  --out-jsonl out/lifecycle_rules.jsonl \
+  --out-cypher out/lifecycle_rules.cypher \
+  --out-query-cypher out/lifecycle_analysis_queries.cypher \
+  --debug \
+  --log-file kb/logs/kb_lifecycle_rules.debug.log
+```
+
+该工具读取两类来源：
+
+- 已整改页面中的“结构化生命周期基线 / 结构化生命周期规则” YAML 代码块。
+- 现有 `process_relation` 页面派生出的创建时规则，包含父进程、子进程、关系类型、`normality`、`risk_level`、高风险参数和证据需求。
+
+输出节点：
+
+```cypher
+(:KbLifecycleRule)
+(:KbDocument)-[:DEFINES_LIFECYCLE_RULE]->(:KbLifecycleRule)
+```
+
+规则节点会保留：
+
+```text
+rule_id
+rule_kind
+source_path
+source_title
+phase
+applies_to
+normality
+risk_level
+confidence
+conditions_json
+evidence_requirements
+result_if_matched
+parent_process_names
+child_process_names
+runtime_child_process_names
+command_line_terms
+image_location_terms
+runtime_indicators
+false_positive_contexts
+```
+
+`out/lifecycle_analysis_queries.cypher` 会同时给出三类参数化查询模板：
+
+- 创建时规则匹配：父进程、子进程、命令行和路径上下文。
+- 运行时证据摘要：子进程、网络、文件、注册表/配置证据面。
+- 证据完整性骨架：供上层服务收敛 `safe / risky / deviation / baseline_gap / evidence_insufficient`。
+
+导入 Neo4j 后，威胁分析服务应以 STIX 行为事实图中的运行时 `Process` 为锚点，分别匹配创建时规则和运行时规则。注意知识库中的进程页是 `(:KbDocument:Process)`，运行时进程是 STIX 行为图中的 `(:Process)`；查询时必须显式区分，避免把知识节点和事实节点混用。
+
+---
+
+## 5. 生命周期端到端 smoke
+
+规则库生成后，可以运行端到端 smoke：
+
+```bash
+.venv/bin/python tools/smoke_lifecycle_e2e.py \
+  --rules-jsonl out/lifecycle_rules.jsonl \
+  --out out/lifecycle_e2e_smoke.json \
+  --strict
+```
+
+该 smoke 使用 STIX/Neo4j 语义一致的内置进程生命周期 fixture，验证：
+
+- 完整 Office 拉起 PowerShell 行为能命中创建时规则。
+- 同一行为具备网络、文件、注册表运行时证据时能命中运行时规则。
+- 缺少运行时证据的负例会收敛为 `evidence_insufficient`。
+- 完整高风险生命周期会收敛为 `risky`，不会被误判为 `safe`。
+
+`out/lifecycle_e2e_smoke.json` 是派生验证报告，不是 Markdown 主知识源。
+
+---
+
+## 6. API 检索服务
 
 先构建 SQLite：
 
@@ -202,7 +286,7 @@ curl "http://127.0.0.1:8000/stats"
 
 ---
 
-## 5. 推荐工作流
+## 7. 推荐工作流
 
 ```bash
 # 1. 在 Obsidian 中维护 Markdown 画像
@@ -212,13 +296,19 @@ curl "http://127.0.0.1:8000/stats"
 # 3. 转 Neo4j Cypher
 .venv/bin/python tools/kb_to_neo4j.py --vault kb --out out/windows_app_baseline.cypher --debug
 
-# 4. 启动 API 服务
+# 4. 转生命周期条件规则库
+.venv/bin/python tools/kb_lifecycle_rules_to_cypher.py --vault kb --out-jsonl out/lifecycle_rules.jsonl --out-cypher out/lifecycle_rules.cypher --out-query-cypher out/lifecycle_analysis_queries.cypher --debug
+
+# 5. 生命周期端到端 smoke
+.venv/bin/python tools/smoke_lifecycle_e2e.py --rules-jsonl out/lifecycle_rules.jsonl --out out/lifecycle_e2e_smoke.json --strict
+
+# 6. 启动 API 服务
 .venv/bin/python tools/api_service.py --db out/windows_app_baseline.db --host 0.0.0.0 --port 8000 --debug
 ```
 
 ---
 
-## 6. 设计原则
+## 8. 设计原则
 
 本工具集遵循“Markdown Wiki 是源头，结构化数据是派生产物”的原则：
 
@@ -226,6 +316,7 @@ curl "http://127.0.0.1:8000/stats"
 Markdown/Obsidian：给人和 AI 维护知识
 SQLite：给检索、统计、API 服务使用
 Neo4j：给关系推理、可视化、路径分析使用
+Lifecycle Rule Cypher：给 STIX 行为事实图的条件判断使用
 ```
 
 不要手工修改 SQLite 或 Neo4j 作为主数据源。所有正式修改都应回写到 Markdown 画像库，再重新生成结构化数据。

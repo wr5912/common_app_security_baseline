@@ -72,3 +72,52 @@ Office 文档来源
 ## 7. 推荐处置
 
 默认进入疑似/高危核验队列，结合证据提升或降级。
+
+## 8. 结构化生命周期规则
+
+```yaml
+lifecycle_baseline:
+  version: 1
+  applies_to: security_baseline
+  phase: lifecycle
+  creation:
+    required_evidence:
+      - parent_process
+      - child_process
+      - image_path
+      - command_line
+      - user
+    parent_process_any:
+      - winword.exe
+    child_process_any:
+      - powershell.exe
+      - cmd.exe
+      - wscript.exe
+      - cscript.exe
+      - mshta.exe
+      - rundll32.exe
+      - regsvr32.exe
+    command_line_contains_any:
+      - -EncodedCommand
+      - -ExecutionPolicy Bypass
+      - -NoProfile
+      - -WindowStyle Hidden
+      - IEX
+      - DownloadString
+      - FromBase64String
+  runtime:
+    required_evidence:
+      - network_connections
+      - file_activity
+      - registry_or_config_activity
+      - persistence_changes
+    followed_by_any:
+      - network_connection
+      - file_write
+      - persistence_change
+  false_positive:
+    allowed_contexts:
+      - signed_enterprise_macro
+      - internal_office_addin
+      - approved_automation_template
+```
