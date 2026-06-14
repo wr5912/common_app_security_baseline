@@ -451,7 +451,8 @@ ANALYSIS_QUERY_HEADER = """// STIX 行为事实图进程全生命周期条件判
 //
 // 参数约定：
 //   $process_key: 目标进程实例标识，可对应 process_key / stix_id / process_uid。
-//   $lookback_ms / $lookahead_ms: 可选时间窗口，具体是否使用取决于行为图是否保存 event_time。
+//   $lookback_ms / $lookahead_ms: 可选时间窗口。运行时证据若带 event_time / created_time，
+//     必须落在目标进程 created_time 附近；缺少时间字段时保守保留为待上层继续核验。
 //
 // 结论边界：
 //   创建时和运行时证据都齐全且可由规则解释，才允许上层服务收敛为 safe。
@@ -491,6 +492,10 @@ RUNTIME_EVIDENCE_QUERY = """// 2. 运行时证据摘要：子进程、网络、�
 MATCH (p:Process)
 WHERE NOT p:KbDocument
   AND ($process_key IS NULL OR p.process_key = $process_key OR p.stix_id = $process_key OR p.process_uid = $process_key)
+WITH p,
+     coalesce($lookback_ms, 0) AS lookback_ms,
+     coalesce($lookahead_ms, 3600000) AS lookahead_ms,
+     coalesce(p.created_time, p.create_time, p.start_time, 0) AS process_time
 OPTIONAL MATCH (child:Process)-[:parent_ref]->(p)
 OPTIONAL MATCH (net_obs:ObservedData)-[:x_subject_process]->(p)
 OPTIONAL MATCH (net_obs)-[:x_network_flow]->(net:NetworkTraffic)
@@ -498,11 +503,50 @@ OPTIONAL MATCH (file_obs:ObservedData)-[:x_subject_process]->(p)
 OPTIONAL MATCH (file_obs)-[:x_target_file]->(file:File)
 OPTIONAL MATCH (reg_obs:ObservedData)-[:x_subject_process]->(p)
 OPTIONAL MATCH (reg_obs)-[:x_target_registry_key]->(reg:RegistryKey)
-WITH p,
-     collect(DISTINCT child) AS children,
-     collect(DISTINCT net) AS direct_networks,
-     collect(DISTINCT file) AS files,
-     collect(DISTINCT reg) AS registry_keys
+WITH p, process_time, lookback_ms, lookahead_ms,
+     [item IN collect(DISTINCT CASE
+       WHEN child IS NOT NULL
+            AND (
+              coalesce(child.created_time, child.create_time, child.start_time, 0) = 0
+              OR process_time = 0
+              OR (
+                coalesce(child.created_time, child.create_time, child.start_time, 0) >= process_time - lookback_ms
+                AND coalesce(child.created_time, child.create_time, child.start_time, 0) <= process_time + lookahead_ms
+              )
+            )
+         THEN child
+       ELSE null
+     END) WHERE item IS NOT NULL] AS children,
+     [item IN collect(DISTINCT CASE
+       WHEN net IS NOT NULL
+            AND (
+              coalesce(net_obs.event_time, 0) = 0
+              OR process_time = 0
+              OR (net_obs.event_time >= process_time - lookback_ms AND net_obs.event_time <= process_time + lookahead_ms)
+            )
+         THEN net
+       ELSE null
+     END) WHERE item IS NOT NULL] AS direct_networks,
+     [item IN collect(DISTINCT CASE
+       WHEN file IS NOT NULL
+            AND (
+              coalesce(file_obs.event_time, 0) = 0
+              OR process_time = 0
+              OR (file_obs.event_time >= process_time - lookback_ms AND file_obs.event_time <= process_time + lookahead_ms)
+            )
+         THEN file
+       ELSE null
+     END) WHERE item IS NOT NULL] AS files,
+     [item IN collect(DISTINCT CASE
+       WHEN reg IS NOT NULL
+            AND (
+              coalesce(reg_obs.event_time, 0) = 0
+              OR process_time = 0
+              OR (reg_obs.event_time >= process_time - lookback_ms AND reg_obs.event_time <= process_time + lookahead_ms)
+            )
+         THEN reg
+       ELSE null
+     END) WHERE item IS NOT NULL] AS registry_keys
 WITH p, children, direct_networks, files, registry_keys,
      [c IN children | toLower(last(split(replace(coalesce(c.image_path, c.name, c.process_name, ''), '\\\\', '/'), '/')))] AS child_names
 OPTIONAL MATCH (r:KbLifecycleRule)
@@ -566,6 +610,10 @@ EVIDENCE_COMPLETENESS_QUERY = """// 3. 证据完整性骨架：上层服务可�
 MATCH (p:Process)
 WHERE NOT p:KbDocument
   AND ($process_key IS NULL OR p.process_key = $process_key OR p.stix_id = $process_key OR p.process_uid = $process_key)
+WITH p,
+     coalesce($lookback_ms, 0) AS lookback_ms,
+     coalesce($lookahead_ms, 3600000) AS lookahead_ms,
+     coalesce(p.created_time, p.create_time, p.start_time, 0) AS process_time
 OPTIONAL MATCH (p)-[:parent_ref]->(parent:Process)
 OPTIONAL MATCH (creation_obs:ObservedData)-[:x_created_process]->(p)
 OPTIONAL MATCH (creation_obs)-[:x_actor_user]->(user:UserAccount)
@@ -576,12 +624,51 @@ OPTIONAL MATCH (file_obs:ObservedData)-[:x_subject_process]->(p)
 OPTIONAL MATCH (file_obs)-[:x_target_file]->(file:File)
 OPTIONAL MATCH (reg_obs:ObservedData)-[:x_subject_process]->(p)
 OPTIONAL MATCH (reg_obs)-[:x_target_registry_key]->(reg:RegistryKey)
-WITH p, parent,
+WITH p, parent, process_time, lookback_ms, lookahead_ms,
      collect(DISTINCT user) AS users,
-     collect(DISTINCT child) AS children,
-     collect(DISTINCT net) AS direct_networks,
-     collect(DISTINCT file) AS files,
-     collect(DISTINCT reg) AS registry_keys
+     [item IN collect(DISTINCT CASE
+       WHEN child IS NOT NULL
+            AND (
+              coalesce(child.created_time, child.create_time, child.start_time, 0) = 0
+              OR process_time = 0
+              OR (
+                coalesce(child.created_time, child.create_time, child.start_time, 0) >= process_time - lookback_ms
+                AND coalesce(child.created_time, child.create_time, child.start_time, 0) <= process_time + lookahead_ms
+              )
+            )
+         THEN child
+       ELSE null
+     END) WHERE item IS NOT NULL] AS children,
+     [item IN collect(DISTINCT CASE
+       WHEN net IS NOT NULL
+            AND (
+              coalesce(net_obs.event_time, 0) = 0
+              OR process_time = 0
+              OR (net_obs.event_time >= process_time - lookback_ms AND net_obs.event_time <= process_time + lookahead_ms)
+            )
+         THEN net
+       ELSE null
+     END) WHERE item IS NOT NULL] AS direct_networks,
+     [item IN collect(DISTINCT CASE
+       WHEN file IS NOT NULL
+            AND (
+              coalesce(file_obs.event_time, 0) = 0
+              OR process_time = 0
+              OR (file_obs.event_time >= process_time - lookback_ms AND file_obs.event_time <= process_time + lookahead_ms)
+            )
+         THEN file
+       ELSE null
+     END) WHERE item IS NOT NULL] AS files,
+     [item IN collect(DISTINCT CASE
+       WHEN reg IS NOT NULL
+            AND (
+              coalesce(reg_obs.event_time, 0) = 0
+              OR process_time = 0
+              OR (reg_obs.event_time >= process_time - lookback_ms AND reg_obs.event_time <= process_time + lookahead_ms)
+            )
+         THEN reg
+       ELSE null
+     END) WHERE item IS NOT NULL] AS registry_keys
 WITH p, parent, users, children, direct_networks, files, registry_keys,
      (size(users) > 0 OR toString(coalesce(p.user_name, p.user_id, p.user_domain, '')) <> '') AS has_user,
      (

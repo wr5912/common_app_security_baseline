@@ -44,6 +44,18 @@ tags:
 
 该 smoke 使用 STIX/Neo4j 语义一致的进程生命周期 fixture，验证创建时规则命中、运行时证据命中、证据不足负例和最终 `risky / evidence_insufficient` 收敛结果。`out/lifecycle_e2e_smoke.json` 是派生验证报告，不是主知识源。
 
+Neo4j 查询级端到端 smoke：
+
+```bash
+.venv/bin/python tools/smoke_lifecycle_neo4j_e2e.py \
+  --rules-cypher out/lifecycle_rules.cypher \
+  --query-cypher out/lifecycle_analysis_queries.cypher \
+  --out out/lifecycle_neo4j_e2e_smoke.json \
+  --strict
+```
+
+该 smoke 默认启动临时 Neo4j 容器，将 `KbLifecycleRule` 导入图数据库，再写入 STIX/Neo4j 风格进程生命周期 fixture，验证创建时命中、运行时窗口判断、证据完整性和知识节点 / 事实节点隔离。
+
 ## 1. 目标
 
 本工具集用于把“终端应用安全基线画像库”的 Markdown Wiki 中间产物转成五类可消费形态：
@@ -53,6 +65,7 @@ Markdown Wiki -> SQLite 结构化数据
 Markdown Wiki -> Neo4j 图数据
 Markdown Wiki -> 生命周期条件规则库
 生命周期条件规则库 -> 端到端 smoke 验证
+生命周期条件规则库 -> Neo4j 查询级 smoke 验证
 SQLite -> API 检索服务
 ```
 
@@ -113,6 +126,7 @@ python tools/kb_to_neo4j.py --vault kb --out out/windows_app_baseline.cypher --d
 ```text
 tools/kb_lifecycle_rules_to_cypher.py
 tools/smoke_lifecycle_e2e.py
+tools/smoke_lifecycle_neo4j_e2e.py
 ```
 
 功能：
@@ -121,6 +135,7 @@ tools/smoke_lifecycle_e2e.py
 从结构化生命周期基线 / 规则 YAML 块和 process_relation 页面生成 KbLifecycleRule 规则库
 输出 lifecycle_rules.jsonl、lifecycle_rules.cypher 和 lifecycle_analysis_queries.cypher
 使用 STIX/Neo4j 语义一致的进程生命周期 fixture 执行端到端 smoke
+使用临时 Neo4j 行为事实图执行查询级端到端 smoke
 验证创建时规则、运行时证据、证据不足负例和最终判断收敛
 ```
 
@@ -129,6 +144,7 @@ tools/smoke_lifecycle_e2e.py
 ```bash
 python tools/kb_lifecycle_rules_to_cypher.py --vault kb --out-jsonl out/lifecycle_rules.jsonl --out-cypher out/lifecycle_rules.cypher --out-query-cypher out/lifecycle_analysis_queries.cypher --strict
 python tools/smoke_lifecycle_e2e.py --rules-jsonl out/lifecycle_rules.jsonl --out out/lifecycle_e2e_smoke.json --strict
+python tools/smoke_lifecycle_neo4j_e2e.py --rules-cypher out/lifecycle_rules.cypher --query-cypher out/lifecycle_analysis_queries.cypher --out out/lifecycle_neo4j_e2e_smoke.json --strict
 ```
 
 ## 5. 工具四：API 检索服务
@@ -304,5 +320,6 @@ python tools/kb_to_sqlite.py --vault kb --out out/windows_app_baseline.db --rebu
 python tools/kb_to_neo4j.py --vault kb --out out/windows_app_baseline.cypher --debug
 python tools/kb_lifecycle_rules_to_cypher.py --vault kb --out-jsonl out/lifecycle_rules.jsonl --out-cypher out/lifecycle_rules.cypher --out-query-cypher out/lifecycle_analysis_queries.cypher --strict
 python tools/smoke_lifecycle_e2e.py --rules-jsonl out/lifecycle_rules.jsonl --out out/lifecycle_e2e_smoke.json --strict
+python tools/smoke_lifecycle_neo4j_e2e.py --rules-cypher out/lifecycle_rules.cypher --query-cypher out/lifecycle_analysis_queries.cypher --out out/lifecycle_neo4j_e2e_smoke.json --strict
 python tools/api_service.py --db out/windows_app_baseline.db --host 0.0.0.0 --port 8000 --debug
 ```

@@ -35,3 +35,43 @@ tags:
 ## 4. 关联对象
 
 - [[Windows常见应用全量覆盖清单]]
+
+## 5. 结构化生命周期规则
+
+```yaml
+lifecycle_baseline:
+  version: 1
+  applies_to: security_baseline
+  phase: lifecycle
+  creation:
+    required_evidence:
+      - parent_process
+      - image_path
+      - command_line
+      - user
+      - service_name
+    child_process_any:
+      - svchost.exe
+      - System
+    image_location_any:
+      - user_writable_dir
+      - temp_dir
+      - downloads_dir
+      - network_share
+  runtime:
+    required_evidence:
+      - network_connections
+      - file_activity
+      - account_activity
+      - service_state_change
+    risk_escalates_when:
+      - lateral_movement
+      - sensitive_file_access
+      - abnormal_external_connection
+      - unknown_child_process
+  false_positive:
+    allowed_contexts:
+      - authorized_file_share
+      - domain_controller_or_file_server
+      - approved_backup_or_sync
+```

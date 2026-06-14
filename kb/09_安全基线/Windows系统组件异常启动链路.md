@@ -42,3 +42,49 @@ Windows 系统组件被异常父进程拉起、从异常路径运行或承担与
 ## 5. 关联对象
 
 - [[Windows常见应用完整画像验收清单]]
+
+## 6. 结构化生命周期规则
+
+```yaml
+lifecycle_baseline:
+  version: 1
+  applies_to: security_baseline
+  phase: lifecycle
+  creation:
+    required_evidence:
+      - parent_process
+      - child_process
+      - image_path
+      - command_line
+      - user
+    child_process_any:
+      - svchost.exe
+      - rundll32.exe
+      - regsvr32.exe
+      - powershell.exe
+      - cmd.exe
+      - wscript.exe
+      - mshta.exe
+    image_location_any:
+      - user_writable_dir
+      - temp_dir
+      - downloads_dir
+      - network_share
+  runtime:
+    required_evidence:
+      - child_processes
+      - network_connections
+      - file_activity
+      - registry_or_config_activity
+    risk_escalates_when:
+      - unknown_child_process
+      - abnormal_external_connection
+      - persistence_write
+      - credential_access
+      - data_archive
+  false_positive:
+    allowed_contexts:
+      - microsoft_signed_component
+      - approved_admin_tooling
+      - approved_change
+```

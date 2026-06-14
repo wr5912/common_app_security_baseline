@@ -164,6 +164,13 @@ evidence_insufficient > baseline_gap > deviation > risky > safe
 - 至少若干通用安全基线页面提供结构化生命周期规则，证明整改后的知识能直接转为可查询条件。
 - 工具能输出可复用 Cypher 查询模板，用于按 STIX `Process` 锚点匹配创建时规则、运行时证据和证据完整性。
 - `tools/smoke_lifecycle_e2e.py` 能使用生成的规则库完成端到端 smoke：完整 Office 拉起 PowerShell 生命周期收敛为 `risky`，缺少运行时证据的负例收敛为 `evidence_insufficient`。
+- `tools/smoke_lifecycle_neo4j_e2e.py` 能将规则 Cypher 导入临时 Neo4j，写入 STIX/Neo4j 风格进程生命周期 fixture，并执行生成的查询模板验证创建时命中、运行时窗口、证据完整性和知识节点 / 事实节点隔离。
 - 模板和抽取规范说明同一套结构化规则格式。
 - 生成的 Cypher 不直接修改主知识库，只创建派生规则节点。
 - 原有 SQLite / Neo4j 抽取命令仍可重复运行。
+
+## 9. v1.0.2 落地状态
+
+- 20 个安全基线页面已补充结构化生命周期规则块。
+- 当前规则抽取结果为 `rules=231`，其中 `structured_lifecycle=20`、`derived_process_relation=211`。
+- 仓库内已完成 Python fixture 级 smoke 与 Neo4j 查询级 smoke；真实威胁分析平台 live 查询仍需目标系统侧凭据和真实 `Process` 锚点。

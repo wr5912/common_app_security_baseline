@@ -1,12 +1,14 @@
 # 终端应用安全基线画像库 CLI / API 工具集
 
-本目录提供 5 类工具：
+本目录提供 7 类核心工具：
 
 1. `kb_to_sqlite.py`：将 Obsidian/Markdown 画像库转为结构化 SQLite 数据。
 2. `kb_to_neo4j.py`：将 Obsidian/Markdown 双链关系转为 Neo4j 图数据，默认生成 Cypher 文件，可选直连执行。
 3. `kb_lifecycle_rules_to_cypher.py`：将生命周期基线知识转为 JSONL / Cypher 条件规则库，用于基于 STIX 行为事实图的进程全生命周期分析。
 4. `smoke_lifecycle_e2e.py`：用生成的生命周期规则库跑 STIX 风格进程生命周期端到端 smoke。
-5. `api_service.py`：基于 SQLite 数据库提供 API 检索服务，支持全匹配、模糊匹配、FTS 全文检索、LIKE 检索。
+5. `smoke_lifecycle_neo4j_e2e.py`：用临时 Neo4j 行为事实图执行生命周期规则导入和查询级端到端 smoke。
+6. `validate_wiki.py`：校验 YAML、`type` / `os` 枚举、严格双链、索引入口和变更日志。
+7. `api_service.py`：基于 SQLite 数据库提供 API 检索服务，支持全匹配、模糊匹配、FTS 全文检索、LIKE 检索。
 
 所有工具均支持：
 
@@ -36,7 +38,7 @@ uv pip install -r tools/requirements.txt
 uv pip install PyYAML
 ```
 
-如果只生成 Neo4j Cypher 文件，不直连 Neo4j，也可以不安装 `neo4j` Python driver。
+如果只生成 Neo4j Cypher 文件，不直连 Neo4j，也可以不安装 `neo4j` Python driver。运行 `smoke_lifecycle_neo4j_e2e.py` 时需要 `neo4j` Python driver 和可用 Docker，或手工传入外部 Neo4j 连接参数。
 
 ---
 
@@ -216,7 +218,7 @@ false_positive_contexts
 
 ## 5. 生命周期端到端 smoke
 
-规则库生成后，可以运行端到端 smoke：
+规则库生成后，可以先运行 Python 级端到端 smoke：
 
 ```bash
 .venv/bin/python tools/smoke_lifecycle_e2e.py \
@@ -234,9 +236,34 @@ false_positive_contexts
 
 `out/lifecycle_e2e_smoke.json` 是派生验证报告，不是 Markdown 主知识源。
 
+需要验证生成的 Cypher 查询模板时，运行 Neo4j 级端到端 smoke：
+
+```bash
+.venv/bin/python tools/smoke_lifecycle_neo4j_e2e.py \
+  --rules-cypher out/lifecycle_rules.cypher \
+  --query-cypher out/lifecycle_analysis_queries.cypher \
+  --out out/lifecycle_neo4j_e2e_smoke.json \
+  --strict
+```
+
+该 smoke 默认启动临时 Neo4j 容器，使用 `tmpfs` 承载容器内 `/data`、`/logs` 和 `/tmp`，不会向仓库写入主数据。它验证规则导入、创建时命中、运行时窗口过滤、证据完整性和 `(:KbDocument:Process)` 知识节点不会混入 STIX 行为事实查询。
+
 ---
 
-## 6. API 检索服务
+## 6. Wiki 结构校验
+
+```bash
+.venv/bin/python tools/validate_wiki.py \
+  --vault kb \
+  --out-json out/validate_wiki.json \
+  --fail
+```
+
+该校验会阻断 YAML/frontmatter、`type` / `os` 枚举、严格双链、索引入口和变更日志缺口。`out/validate_wiki.json` 是派生验证报告，不是 Markdown 主知识源。
+
+---
+
+## 7. API 检索服务
 
 先构建 SQLite：
 
@@ -286,7 +313,7 @@ curl "http://127.0.0.1:8000/stats"
 
 ---
 
-## 7. 推荐工作流
+## 8. 推荐工作流
 
 ```bash
 # 1. 在 Obsidian 中维护 Markdown 画像
@@ -302,13 +329,19 @@ curl "http://127.0.0.1:8000/stats"
 # 5. 生命周期端到端 smoke
 .venv/bin/python tools/smoke_lifecycle_e2e.py --rules-jsonl out/lifecycle_rules.jsonl --out out/lifecycle_e2e_smoke.json --strict
 
-# 6. 启动 API 服务
+# 6. Neo4j 查询级生命周期 smoke
+.venv/bin/python tools/smoke_lifecycle_neo4j_e2e.py --rules-cypher out/lifecycle_rules.cypher --query-cypher out/lifecycle_analysis_queries.cypher --out out/lifecycle_neo4j_e2e_smoke.json --strict
+
+# 7. Wiki 结构校验
+.venv/bin/python tools/validate_wiki.py --vault kb --out-json out/validate_wiki.json --fail
+
+# 8. 启动 API 服务
 .venv/bin/python tools/api_service.py --db out/windows_app_baseline.db --host 0.0.0.0 --port 8000 --debug
 ```
 
 ---
 
-## 8. 设计原则
+## 9. 设计原则
 
 本工具集遵循“Markdown Wiki 是源头，结构化数据是派生产物”的原则：
 

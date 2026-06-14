@@ -1,7 +1,7 @@
 ---
 type: readme
 project: 终端应用安全基线画像库
-version: 1.0.1
+version: 1.0.2
 status: active
 created: 2026-06-11
 maintainer: security-baseline-team
@@ -20,7 +20,7 @@ tags:
 
 > **平台维度**：每个画像页面用 frontmatter `os: windows | linux | cross` 标注平台。应用 / 服务 / 进程 / 父子关系 / 启动方式 / 文件 / 网络 / 安全基线等目录跨平台共享，靠 `os` 字段区分；平台专属持久化位置分目录承载——Windows 用 `kb/06_注册表画像/`，Linux 用 `kb/12_Linux持久化与配置/`。跨平台方法论页用 `os: cross`（例如 [[服务持久化机制对比]]）。
 
-> **当前发布状态**：`v1.0.1` 在 `v1.0.0` 的 430 条来源覆盖、145 个 Windows 常见应用完整画像、210 个进程画像与 211 条父子进程关系画像基础上，补充 STIX 进程全生命周期规则库转换、查询模板和端到端 smoke 验证。进程与父子关系页面已统一补齐进程创建、启动参数、运行时行为、安全关注点和证据需求等安全基线章节。
+> **当前发布状态**：`v1.0.2` 在 `v1.0.1` 的 STIX 进程全生命周期规则库基础上，补齐 20 个安全基线页的结构化生命周期规则，生成 231 条生命周期规则，并新增本地 Neo4j 级端到端 smoke。进程与父子关系页面已统一补齐进程创建、启动参数、运行时行为、安全关注点和证据需求等安全基线章节。
 
 ---
 
@@ -394,6 +394,7 @@ low / medium / high / critical
 .venv/bin/python tools/audit_source_coverage.py --vault kb --source /tmp/windows系统上常见应用.md --fail
 .venv/bin/python tools/audit_profile_completeness.py --vault kb --fail
 .venv/bin/python tools/audit_process_behavior_baseline.py --vault kb --fail
+.venv/bin/python tools/validate_wiki.py --vault kb --fail
 git diff --check
 ```
 
@@ -424,6 +425,12 @@ git diff --check
 .venv/bin/python tools/smoke_lifecycle_e2e.py \
   --rules-jsonl out/lifecycle_rules.jsonl \
   --out out/lifecycle_e2e_smoke.json \
+  --strict
+
+.venv/bin/python tools/smoke_lifecycle_neo4j_e2e.py \
+  --rules-cypher out/lifecycle_rules.cypher \
+  --query-cypher out/lifecycle_analysis_queries.cypher \
+  --out out/lifecycle_neo4j_e2e_smoke.json \
   --strict
 ```
 
@@ -702,12 +709,22 @@ metadata           构建元数据
   --strict
 ```
 
-端到端 smoke 会用生成的规则库匹配 STIX 风格进程生命周期 fixture，验证创建时规则、运行时证据、证据不足负例和最终收敛结果：
+Python 级端到端 smoke 会用生成的规则库匹配 STIX 风格进程生命周期 fixture，验证创建时规则、运行时证据、证据不足负例和最终收敛结果：
 
 ```bash
 .venv/bin/python tools/smoke_lifecycle_e2e.py \
   --rules-jsonl out/lifecycle_rules.jsonl \
   --out out/lifecycle_e2e_smoke.json \
+  --strict
+```
+
+Neo4j 级端到端 smoke 会启动临时 Neo4j 容器，导入规则 Cypher，写入 STIX/Neo4j 风格进程生命周期 fixture，并执行生成的分析查询模板：
+
+```bash
+.venv/bin/python tools/smoke_lifecycle_neo4j_e2e.py \
+  --rules-cypher out/lifecycle_rules.cypher \
+  --query-cypher out/lifecycle_analysis_queries.cypher \
+  --out out/lifecycle_neo4j_e2e_smoke.json \
   --strict
 ```
 
@@ -744,7 +761,7 @@ fts     SQLite FTS5 全文检索
 like    SQL LIKE 包含匹配
 ```
 
-## 四、验收审计工具
+## 五、验收审计工具
 
 以下审计工具用于把 Markdown Wiki 的质量约束前移到提交和发布前：
 
@@ -764,7 +781,7 @@ like    SQL LIKE 包含匹配
 
 这些工具只负责文档结构和知识链路验收，不替代 EDR、资产台账、软件分发、签名信誉或威胁情报系统。精确 hash、签名证书、首次出现时间、企业授权状态等动态事实，应由专门系统提供并在证据页中引用。
 
-## 五、调试日志
+## 六、调试日志
 
 所有工具都支持：
 
@@ -787,7 +804,7 @@ Neo4j Cypher 是否生成成功
 API 每次检索的 SQL、参数和结果数量
 ```
 
-## 六、主数据原则
+## 七、主数据原则
 
 正式维护时仍应遵循：
 
